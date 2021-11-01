@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-
+{% load static %}
 
 <head>
 	<!-- Basic need -->
@@ -18,8 +18,8 @@
 	<meta name="format-detection" content="telephone-no">
 
 	<!-- CSS files -->
-	<link rel="stylesheet" href="css/plugins.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{% static 'main/css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
 
 </head>
 <body>
@@ -29,27 +29,21 @@
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>Login</h3>
-        <form method="post" action="#">
+        <form method="post" action="{% url 'login' %}">
+			{% csrf_token %}
+
         	<div class="row">
         		 <label for="username">
                     Username:
-                    <input type="text" name="username" id="username" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+                    <input type="text" name="username" id="username" placeholder="Username" required="required" />
                 </label>
         	</div>
-           
+
             <div class="row">
             	<label for="password">
                     Password:
-                    <input type="password" name="password" id="password" placeholder="******" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                    <input type="password" name="password" id="password" placeholder="Password" required="required" />
                 </label>
-            </div>
-            <div class="row">
-            	<div class="remember">
-					<div>
-						<input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
-					</div>
-            		<a href="#">Forget password ?</a>
-            	</div>
             </div>
            <div class="row">
            	 <button type="submit">Login</button>
@@ -67,30 +61,32 @@
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>sign up</h3>
-        <form method="post" action="#">
+        <form method="post" action="{% url 'register' %}">
+			{% csrf_token %}
+
             <div class="row">
                  <label for="username-2">
                     Username:
-                    <input type="text" name="username" id="username-2" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+                    <input type="text" name="username" id="username-2" placeholder="Username" required="required" />
                 </label>
             </div>
            
             <div class="row">
                 <label for="email-2">
                     your email:
-                    <input type="password" name="email" id="email-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                    <input type="email" name="email" id="email-2" placeholder="Email" required="required" />
                 </label>
             </div>
              <div class="row">
                 <label for="password-2">
                     Password:
-                    <input type="password" name="password" id="password-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                    <input type="password" name="password" id="password-2" placeholder="Password" required="required" />
                 </label>
             </div>
              <div class="row">
                 <label for="repassword-2">
                     re-type Password:
-                    <input type="password" name="password" id="repassword-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                    <input type="password" name="confirm_password" id="repassword-2" placeholder="Confirm Password" required="required" />
                 </label>
             </div>
            <div class="row">
@@ -156,9 +152,14 @@
 								<li class="it-last"><a href="userrate.html">user rate</a></li>
 							</ul>
 						</li>
+
+						{% if user.is_authenticated %}
+						Hello, {{ user.username }}
+						<li class="btn"><a href="{% url 'logout' %}">Log Out</a></li>
+						{% else %}
 						<li class="loginLink"><a href="#">Log In</a></li>
-						<li class="btn signupLink"><a href="#">Log Out</a></li>
 						<li class="btn signupLink"><a href="#">sign up</a></li>
+						{% endif %}
 					</ul>
 				</div>
 			<!-- /.navbar-collapse -->
@@ -1053,10 +1054,10 @@
 </footer>
 <!-- end of footer section-->
 
-<script src="js/jquery.js"></script>
-<script src="js/plugins.js"></script>
-<script src="js/plugins2.js"></script>
-<script src="js/custom.js"></script>
+<script src="{% static 'main/js/jquery.js' %}"></script>
+<script src="{% static 'main/js/plugins.js' %}"></script>
+<script src="{% static 'main/js/plugins2.js' %}"></script>
+<script src="{% static 'main/js/custom.js' %}"></script>
 </body>
 
 
