@@ -49,3 +49,6 @@ def user_logout(request):
 
 def search_movie(request):
     return render(request, 'main/searchmovie.html')
+
+def user_profile(request):
+    return render(request, 'main/userprofile.html')
