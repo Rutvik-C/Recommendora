@@ -55,3 +55,6 @@ def user_profile(request):
 
 def user_rate(request):
     return render(request, 'main/userrate.html')
+
+def user_favorite(request):
+    return render(request, 'main/userfavorite.html')
