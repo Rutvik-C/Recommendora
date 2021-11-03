@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from .models import *
 
 
 def home_page(request):
-    return render(request, "main/index.html")
+    trending_movies = Movie.objects.all().order_by("-views")[:10]
+    context_dictionary = {
+        "trending_movies": trending_movies
+    }
+
+    return render(request, "main/index.html", context_dictionary)
 
 
 def user_login(request):
