@@ -120,37 +120,20 @@
 							<a href="#page-top"></a>
 						</li>
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">Home</a>
+							<a class="btn btn-default dropdown-toggle lv1">Home</a>
 						</li>
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							movies<i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li class="dropdown">
-									<a href="moviegrid.html">Movie grid</a>
-								</li>			
-								<li><a href="movielist.html">Movie list</a></li>
-								<li><a href="moviesingle.html">Movie single</a></li>
-							</ul>
+							<a class="btn btn-default dropdown-toggle lv1" href="./searchmovie">Search movies</a>
 						</li>
 						
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">Friends</a>
+							<a class="btn btn-default dropdown-toggle lv1">Friends</a>
 						</li>
 						
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							Profile <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="userfavoritegrid.html">user favorite grid</a></li>
-								<li><a href="userfavoritelist.html">user favorite list</a></li>
-								<li><a href="userprofile.html">user profile</a></li>
-								<li class="it-last"><a href="userrate.html">user rate</a></li>
-							</ul>
+							<a class="btn btn-default dropdown-toggle lv1" href="userprofile.html">Profile</a>
 						</li>
 
 						{% if user.is_authenticated %}
@@ -1031,8 +1014,7 @@
 				<h4>Menu</h4>
 				<ul>
 					<li><a href="#">Home</a></li> 
-					<li><a href="#">Movie</a></li>
-					<li><a href="#">Celebrities</a></li>
+					<li><a href="#">Search Movie</a></li>
 					<li><a href="#">Friends</a></li>
 				</ul>
 			</div>
