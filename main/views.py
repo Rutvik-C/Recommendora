@@ -46,3 +46,9 @@ def register(request):
 def user_logout(request):
     logout(request)
     return redirect("app_home")
+
+def search_movie(request):
+    return render(request, 'main/searchmovie.html')
+
+def user_profile(request):
+    return render(request, 'main/userprofile.html')

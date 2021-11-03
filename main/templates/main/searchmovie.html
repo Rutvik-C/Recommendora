@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+{% load static %}
+<!-- moviegrid07:29-->
+<head>
+	<!-- Basic need -->
+	<title>Search Movie</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{% static 'main/css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+
+</head>
+<body>
+
+<!--end of preloading-->
+<!--login form popup-->
+<div class="login-wrapper" id="login-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>Login</h3>
+        <form method="post" action="{% url 'login' %}">
+			{% csrf_token %}
+
+        	<div class="row">
+        		 <label for="username">
+                    Username:
+                    <input type="text" name="username" id="username" placeholder="Username" required="required" />
+                </label>
+        	</div>
+
+            <div class="row">
+            	<label for="password">
+                    Password:
+                    <input type="password" name="password" id="password" placeholder="Password" required="required" />
+                </label>
+            </div>
+           <div class="row">
+           	 <button type="submit">Login</button>
+           </div>
+		   
+        </form>
+        <div class="row">
+        	
+        </div>
+    </div>
+</div>
+<!--end of login form popup-->
+<!--signup form popup-->
+<div class="login-wrapper"  id="signup-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>sign up</h3>
+        <form method="post" action="{% url 'register' %}">
+			{% csrf_token %}
+
+            <div class="row">
+                 <label for="username-2">
+                    Username:
+                    <input type="text" name="username" id="username-2" placeholder="Username" required="required" />
+                </label>
+            </div>
+           
+            <div class="row">
+                <label for="email-2">
+                    your email:
+                    <input type="email" name="email" id="email-2" placeholder="Email" required="required" />
+                </label>
+            </div>
+             <div class="row">
+                <label for="password-2">
+                    Password:
+                    <input type="password" name="password" id="password-2" placeholder="Password" required="required" />
+                </label>
+            </div>
+             <div class="row">
+                <label for="repassword-2">
+                    re-type Password:
+                    <input type="password" name="confirm_password" id="repassword-2" placeholder="Confirm Password" required="required" />
+                </label>
+            </div>
+           <div class="row">
+             <button type="submit">sign up</button>
+           </div>
+        </form>
+    </div>
+</div>
+<!--end of signup form popup-->
+
+<!-- BEGIN | Header -->
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header logo">
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <a href="index-2.html"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt="" width="119" height="58"></a>
+			    </div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" href="/">Home</a>
+						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" href="./searchmovie">Search movies</a>
+						</li>
+						
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1">Friends</a>
+						</li>
+						
+					</ul>
+					<ul class="nav navbar-nav flex-child-menu menu-right">
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" href="./userprofile">Profile</a>
+						</li>
+
+						{% if user.is_authenticated %}
+						Hello, {{ user.username }}
+						<li class="btn"><a href="{% url 'logout' %}">Log Out</a></li>
+						{% else %}
+						<li class="loginLink"><a href="#">Log In</a></li>
+						<li class="btn signupLink"><a href="#">sign up</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			<!-- /.navbar-collapse -->
+	    </nav>
+	    
+	    <!-- top search form -->
+	    <div class="top-search">
+			<input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
+	    </div>
+	</div>
+</header>
+<!-- END | Header -->
+
+<div class="hero common-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1> Search Movie</h1>
+					<ul class="breadcumb">
+						<li class="active"><a href="#">Home</a></li>
+						<li> <span class="ion-ios-arrow-right"></span> Search</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<div class="topbar-filter">
+					<p>Found <span>1,608 movies</span> in total</p>
+					<label>Sort by:</label>
+					<select>
+						<option value="popularity">Popularity Descending</option>
+						<option value="popularity">Popularity Ascending</option>
+						<option value="rating">Rating Descending</option>
+						<option value="rating">Rating Ascending</option>
+						<option value="date">Release date Descending</option>
+						<option value="date">Release date Ascending</option>
+					</select>
+
+				</div>
+				<div class="flex-wrap-movielist">
+						<div class="movie-item-style-2 movie-item-style-1">
+							<img src="images/uploads/mv1.jpg" alt="">
+							<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+							<div class="mv-item-infor">
+								<h6><a href="#">oblivion</a></h6>
+								<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+							</div>
+						</div>					
+						<div class="movie-item-style-2 movie-item-style-1">
+							<img src="images/uploads/mv2.jpg" alt="">
+							<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+							<div class="mv-item-infor">
+								<h6><a href="#">into the wild</a></h6>
+								<p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
+							</div>
+						</div>
+					
+					
+						<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item3.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">Die hard</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+					
+					
+						<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item4.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">The walk</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+							<img src="images/uploads/mv3.jpg" alt="">
+							<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+							<div class="mv-item-infor">
+								<h6><a href="#">blade runner  </a></h6>
+								<p class="rate"><i class="ion-android-star"></i><span>7.3</span> /10</p>
+							</div>
+						</div>
+						<div class="movie-item-style-2 movie-item-style-1">
+							<img src="images/uploads/mv4.jpg" alt="">
+							<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+							<div class="mv-item-infor">
+								<h6><a href="#">Mulholland pride</a></h6>
+								<p class="rate"><i class="ion-android-star"></i><span>7.2</span> /10</p>
+							</div>
+						</div>
+						<div class="movie-item-style-2 movie-item-style-1">
+							<img src="images/uploads/mv5.jpg" alt="">
+							<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+							<div class="mv-item-infor">
+								<h6><a href="#">skyfall: evil of boss</a></h6>
+								<p class="rate"><i class="ion-android-star"></i><span>7.0</span> /10</p>
+							</div>
+						</div>
+						<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item1.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">Interstellar</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item2.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">The revenant</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-it10.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">harry potter</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+						<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-it11.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">guardians galaxy</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-it12.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">the godfather</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+						<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item6.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">blue velvet</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item7.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">gravity</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item8.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">southpaw</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-it9.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">jurassic park</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item9.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">the forest</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item10.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">spectre</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item11.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">strager things</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+	            		<div class="movie-item-style-2 movie-item-style-1">
+	            			<img src="images/uploads/mv-item12.jpg" alt="">
+	            			<div class="hvr-inner">
+	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			</div>
+	            			<div class="mv-item-infor">
+	            				<h6><a href="#">la la land</a></h6>
+	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+	            			</div>
+	            		</div>
+				</div>		
+				<div class="topbar-filter">
+					<label>Movies per page:</label>
+					<select>
+						<option value="range">20 Movies</option>
+						<option value="saab">10 Movies</option>
+					</select>
+					
+					<div class="pagination2">
+						<span>Page 1 of 2:</span>
+						<a class="active" href="#">1</a>
+						<a href="#">2</a>
+						<a href="#">3</a>
+						<a href="#">...</a>
+						<a href="#">78</a>
+						<a href="#">79</a>
+						<a href="#"><i class="ion-arrow-right-b"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12">
+				<div class="sidebar">
+					<div class="searh-form">
+						<h4 class="sb-title">Search for movie</h4>
+						<form class="form-style-1" action="#">
+							<div class="row">
+								<div class="col-md-12 form-it">
+									<label>Movie name</label>
+									<input type="text" placeholder="Enter keywords">
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Genres & Subgenres</label>
+									<div class="group-ip">
+										<select
+											name="skills" multiple="" class="ui fluid dropdown">
+											<option value="">Enter to filter genres</option>
+											<option value="Action1">Action 1</option>
+					                        <option value="Action2">Action 2</option>
+					                        <option value="Action3">Action 3</option>
+					                        <option value="Action4">Action 4</option>
+					                        <option value="Action5">Action 5</option>
+										</select>
+									</div>	
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Rating Range</label>
+									<select>
+									  <option value="range">-- Select the rating range below --</option>
+									  <option value="saab">-- Select the rating range below --</option>
+									</select>
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Release Year</label>
+									<div class="row">
+										<div class="col-md-6">
+											<select>
+											  <option value="range">From</option>
+											  <option value="number">10</option>
+											</select>
+										</div>
+										<div class="col-md-6">
+											<select>
+											  <option value="range">To</option>
+											  <option value="number">20</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 ">
+									<input class="submit" type="submit" value="submit">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- footer section-->
+<footer class="ht-footer">
+	<div class="container">
+		<div class="flex-parent-ft">
+			<div class="flex-child-ft item1">
+				 <a href="index-2.html"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt=""></a>
+				<p>Reach out at help@recommendora.com</p>
+			</div>
+			<div class="flex-child-ft item2">
+				<h4>Menu</h4>
+				<ul>
+					<li><a href="#">Home</a></li> 
+					<li><a href="#">Search Movie</a></li>
+					<li><a href="#">Friends</a></li>
+				</ul>
+			</div>
+			
+			<div class="flex-child-ft item4">
+				<h4>Follow us</h4>
+				<div class="social-link">
+					<a href="#"><i class="ion-social-facebook"></i></a>
+					<a href="#"><i class="ion-social-twitter"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ft-copyright">
+		<div class="backtotop" >
+			<p style="text-align: right;"><a href="#" id="back-to-top">Back to top  <i class="ion-ios-arrow-thin-up"></i></a></p>
+		</div>
+	</div>
+</footer>
+<!-- end of footer section-->
+
+<script src="{% static 'main/js/jquery.js' %}"></script>
+<script src="{% static 'main/js/plugins.js' %}"></script>
+<script src="{% static 'main/js/plugins2.js' %}"></script>
+<script src="{% static 'main/js/custom.js' %}"></script>
+</body>
+
+
+</html>
