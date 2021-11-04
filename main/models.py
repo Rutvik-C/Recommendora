@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Actor(models.Model):
@@ -41,3 +42,11 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class UserPreferences(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    feature_preference = models.TextField()
+    actor_preference = models.TextField()
+    director_preference = models.TextField()
+    studio_preference = models.TextField()

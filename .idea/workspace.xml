@@ -19,7 +19,32 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b39787e7-2e39-4078-8826-a4dd27ff555b" name="Default Changelist" comment="Added trending movies" />
+    <list default="true" id="b39787e7-2e39-4078-8826-a4dd27ff555b" name="Default Changelist" comment="Added trending movies">
+      <change afterPath="$PROJECT_DIR$/main/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0002_movie.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0003_delete_movie.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0004_movie.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0005_delete_movie.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0006_movie.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0007_userpreferences.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0008_delete_userpreferences.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0009_userpreferences.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0010_delete_userpreferences.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/migrations/0011_userpreferences.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/actor_movie_rec.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/actor_vectors.npz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/director_movie_rec.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/director_vectors.npz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/feature_arrays.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/feature_movie_rec.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/feature_vectors.npz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/studio_movie_rec.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/studio_vectors.npz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,10 +74,11 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/main/static/main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ml_utils/recommendation" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\# Everyday\RutvikLocal\2-PROJECTS\Recommendora\ml_utils\recommendation" />
       <recent name="C:\# Everyday\RutvikLocal\2-PROJECTS\Recommendora\main\static\main" />
     </key>
   </component>
@@ -145,10 +171,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="453" y="62" key="Github.UntrackedFilesDialog/0.0.1366.728@0.0.1366.728" timestamp="1633874115896" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1635790128825">
+    <state x="470" y="80" key="VCS.ChangeListViewerDialog" timestamp="1635929993217">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1635790128825" />
+    <state x="470" y="80" key="VCS.ChangeListViewerDialog/0.0.1366.728@0.0.1366.728" timestamp="1635929993217" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1635930037929">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1635930037929" />
     <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1635922240113">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
