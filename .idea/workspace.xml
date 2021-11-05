@@ -19,10 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b39787e7-2e39-4078-8826-a4dd27ff555b" name="Default Changelist" comment="Added ML files, created user preference model">
+    <list default="true" id="b39787e7-2e39-4078-8826-a4dd27ff555b" name="Default Changelist" comment="Integrated ML models partially">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636047432727</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Integrated ML models partially">
+      <created>1636093278353</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1636093278353</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -143,7 +148,8 @@
     <MESSAGE value="Added models" />
     <MESSAGE value="Added trending movies" />
     <MESSAGE value="Added ML files, created user preference model" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ML files, created user preference model" />
+    <MESSAGE value="Integrated ML models partially" />
+    <option name="LAST_COMMIT_MESSAGE" value="Integrated ML models partially" />
   </component>
   <component name="WindowStateProjectService">
     <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1633927786644">
@@ -162,10 +168,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="470" y="80" key="VCS.ChangeListViewerDialog/0.0.1366.728@0.0.1366.728" timestamp="1635929993217" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1636047473446">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1636093283729">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1636047473446" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1636093283729" />
     <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1635922240113">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
