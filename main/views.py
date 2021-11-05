@@ -3,18 +3,53 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import *
 import json
+import pickle
+
+
+with open("ml_utils/recommendation/feature_movie_rec.pkl", "rb") as f:
+    model_feature = pickle.load(f)
+with open("ml_utils/recommendation/actor_movie_rec.pkl", "rb") as f:
+    model_actor = pickle.load(f)
+with open("ml_utils/recommendation/director_movie_rec.pkl", "rb") as f:
+    model_director = pickle.load(f)
+with open("ml_utils/recommendation/studio_movie_rec.pkl", "rb") as f:
+    model_studio = pickle.load(f)
+with open("ml_utils/recommendation/feature_arrays.json", "r") as f:
+    data = json.load(f)
 
 
 def home_page(request):
+    print("Here")
     trending_movies = Movie.objects.all().order_by("-views")[:12]
-    context_dictionary = {
-        "trending_movies": trending_movies
-    }
 
+    feature_rec, actor_rec, director_rec, studio_rec = [], [], [], []
     if request.user.is_authenticated:
-        # Do recommendations
-        pass
+        user_preference = UserPreferences.objects.get(user=request.user)
 
+        feature_preference = json.loads(user_preference.feature_preference)
+        actor_preference = json.loads(user_preference.actor_preference)
+        director_preference = json.loads(user_preference.director_preference)
+        studio_preference = json.loads(user_preference.studio_preference)
+        print("Data Ready")
+
+        y = data["title"]
+        print("Starting rec")
+        dist, ind = model_feature.kneighbors([feature_preference], n_neighbors=8)
+        print("rec done 1")
+        temp = [888, 3274, 3923, 23434, 12983, 10293]
+        for i in ind[0]:
+            feature_rec.append(Movie.objects.filter(title=y[i]).first())
+        print("rec done complete")
+
+        # dist, ind = model_actor.kneighbors([actor_preference], n_neighbors=12)
+        # for i in ind[0]:
+        #     actor_rec.append(Movie.objects.filter(title=y[i]).first())
+
+    context_dictionary = {
+        "trending_movies": trending_movies,
+        "feature_movies": feature_rec,
+        "actor_movies": actor_rec
+    }
     return render(request, "main/index.html", context_dictionary)
 
 
