@@ -19,8 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b39787e7-2e39-4078-8826-a4dd27ff555b" name="Default Changelist" comment="Integrated ML models partially">
+    <list default="true" id="b39787e7-2e39-4078-8826-a4dd27ff555b" name="Default Changelist" comment="Home page rec done">
+      <change afterPath="$PROJECT_DIR$/ml_utils/recommendation/feature_default.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recommendora/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recommendora/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/templates/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/templates/main/userprofile.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/userprofile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +59,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/ml_utils/recommendation" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\# Everyday\RutvikLocal\2-PROJECTS\Recommendora\ml_utils\recommendation" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\# Everyday\RutvikLocal\2-PROJECTS\Recommendora\ml_utils\recommendation" />
       <recent name="C:\# Everyday\RutvikLocal\2-PROJECTS\Recommendora\main\static\main" />
@@ -149,9 +157,14 @@
     <MESSAGE value="Added trending movies" />
     <MESSAGE value="Added ML files, created user preference model" />
     <MESSAGE value="Integrated ML models partially" />
-    <option name="LAST_COMMIT_MESSAGE" value="Integrated ML models partially" />
+    <MESSAGE value="Home page rec done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Home page rec done" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="92" y="92" width="1182" height="544" key="DiffContextDialog" timestamp="1636129913032">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="92" y="92" width="1182" height="544" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1636129913032" />
     <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1633927786644">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -164,17 +177,17 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="453" y="62" key="Github.UntrackedFilesDialog/0.0.1366.728@0.0.1366.728" timestamp="1633874115896" />
-    <state x="470" y="80" key="VCS.ChangeListViewerDialog" timestamp="1635929993217">
+    <state x="470" y="80" key="VCS.ChangeListViewerDialog" timestamp="1636118960636">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="470" y="80" key="VCS.ChangeListViewerDialog/0.0.1366.728@0.0.1366.728" timestamp="1635929993217" />
+    <state x="470" y="80" key="VCS.ChangeListViewerDialog/0.0.1366.728@0.0.1366.728" timestamp="1636118960636" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1636093283729">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1636093283729" />
-    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1635922240113">
+    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1636118946579">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1635922240113" />
+    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1636118946579" />
   </component>
 </project>

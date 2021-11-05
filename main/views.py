@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import *
 import json
 import pickle
-
 
 with open("ml_utils/recommendation/feature_movie_rec.pkl", "rb") as f:
     model_feature = pickle.load(f)
@@ -16,10 +16,11 @@ with open("ml_utils/recommendation/studio_movie_rec.pkl", "rb") as f:
     model_studio = pickle.load(f)
 with open("ml_utils/recommendation/feature_arrays.json", "r") as f:
     data = json.load(f)
+with open("ml_utils/recommendation/feature_default.json", "r") as f:
+    defaults = json.load(f)
 
 
 def home_page(request):
-    print("Here")
     trending_movies = Movie.objects.all().order_by("-views")[:12]
 
     feature_rec, actor_rec, director_rec, studio_rec = [], [], [], []
@@ -30,25 +31,30 @@ def home_page(request):
         actor_preference = json.loads(user_preference.actor_preference)
         director_preference = json.loads(user_preference.director_preference)
         studio_preference = json.loads(user_preference.studio_preference)
-        print("Data Ready")
 
         y = data["title"]
-        print("Starting rec")
         dist, ind = model_feature.kneighbors([feature_preference], n_neighbors=8)
-        print("rec done 1")
-        temp = [888, 3274, 3923, 23434, 12983, 10293]
         for i in ind[0]:
             feature_rec.append(Movie.objects.filter(title=y[i]).first())
-        print("rec done complete")
 
-        # dist, ind = model_actor.kneighbors([actor_preference], n_neighbors=12)
-        # for i in ind[0]:
-        #     actor_rec.append(Movie.objects.filter(title=y[i]).first())
+        dist, ind = model_actor.kneighbors([actor_preference], n_neighbors=8)
+        for i in ind[0]:
+            actor_rec.append(Movie.objects.filter(title=y[i]).first())
+
+        dist, ind = model_director.kneighbors([director_preference], n_neighbors=8)
+        for i in ind[0]:
+            director_rec.append(Movie.objects.filter(title=y[i]).first())
+
+        dist, ind = model_studio.kneighbors([studio_preference], n_neighbors=8)
+        for i in ind[0]:
+            studio_rec.append(Movie.objects.filter(title=y[i]).first())
 
     context_dictionary = {
         "trending_movies": trending_movies,
         "feature_movies": feature_rec,
-        "actor_movies": actor_rec
+        "actor_movies": actor_rec,
+        "director_movies": director_rec,
+        "studio_movies": studio_rec
     }
     return render(request, "main/index.html", context_dictionary)
 
@@ -82,10 +88,10 @@ def register(request):
 
             user_preference = UserPreferences(
                 user=new_user,
-                feature_preference=json.dumps([0 for _ in range(36350)]),
-                actor_preference=json.dumps([0 for _ in range(417200)]),
-                director_preference=json.dumps([0 for _ in range(34705)]),
-                studio_preference=json.dumps([0 for _ in range(31770)])
+                feature_preference=defaults["feature"],
+                actor_preference=defaults["actor"],
+                director_preference=defaults["director"],
+                studio_preference=defaults["studio"]
             )
             user_preference.save()
 
@@ -102,14 +108,19 @@ def user_logout(request):
     logout(request)
     return redirect("app_home")
 
+
 def search_movie(request):
     return render(request, 'main/searchmovie.html')
 
+
+@login_required
 def user_profile(request):
     return render(request, 'main/userprofile.html')
 
+
 def user_rate(request):
     return render(request, 'main/userrate.html')
+
 
 def user_favorite(request):
     return render(request, 'main/userfavorite.html')
