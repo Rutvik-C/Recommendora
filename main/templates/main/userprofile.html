@@ -131,24 +131,31 @@
 							</div>
 						</div>
 					</form>
-					<form action="#" class="password">
+					<form method="post" action="{% url 'user_profile' %}" class="password">
+						{% csrf_token %}
+
 						<h4>Change password</h4>
+
+						{% for message in messages %}
+       						<h4>{{ message }}</h4>
+    					{% endfor %}
+
 						<div class="row">
 							<div class="col-md-6 form-it">
 								<label>Old Password</label>
-								<input type="text" placeholder="**********">
+								<input type="password" name="old_password" placeholder="Old Password" required>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-it">
 								<label>New Password</label>
-								<input type="text" placeholder="***************">
+								<input type="password" name="new_password" placeholder="New Password" required>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-it">
 								<label>Confirm New Password</label>
-								<input type="text" placeholder="*************** ">
+								<input type="password" name="confirm_new_password" placeholder="Confirm Password" required>
 							</div>
 						</div>
 						<div class="row">

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{% static 'main/css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+</head>
+<body>
+    {% for message in messages %}
+        <h2>{{ message }}</h2>
+    {% endfor %}
+
+    <h3>Log in</h3>
+
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <div class="row">
+         <label for="username">
+            Username:
+            <input type="text" name="username" id="username" placeholder="Username" required="required" />
+        </label>
+    </div>
+
+    <div class="row">
+        <label for="password">
+            Password:
+            <input type="password" name="password" id="password" placeholder="Password" required="required" />
+        </label>
+    </div>
+    <div class="row">
+        <button type="submit">Login</button>
+    </div>
+
+    </form>
+
+    <a href="{% url 'register' %}">Register here</a>
+
+<script src="{% static 'main/js/jquery.js' %}"></script>
+<script src="{% static 'main/js/plugins.js' %}"></script>
+<script src="{% static 'main/js/plugins2.js' %}"></script>
+<script src="{% static 'main/js/custom.js' %}"></script>
+
+</body>
+</html>

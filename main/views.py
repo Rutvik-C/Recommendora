@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import *
@@ -68,11 +69,14 @@ def user_login(request):
 
         if user is not None:
             login(request, user)
+            return redirect("app_home")
 
         else:
-            print("Invalid credentials")
+            messages.success(request, "Invalid credentials")
+            return redirect("login")
 
-    return redirect("app_home")
+    else:
+        return render(request, "main/login.html")
 
 
 def register(request):
@@ -82,26 +86,35 @@ def register(request):
         password = request.POST.get("password")
         password_again = request.POST.get("confirm_password")
 
-        if not (User.objects.filter(username=username).exists() and User.objects.filter(email=email).exists()):
-            new_user = User.objects.create_user(username=username, email=email, password=password)
-            new_user.save()
+        if password != password_again:
+            messages.error(request, "Passwords do not match")
+            return redirect("register")
 
-            user_preference = UserPreferences(
-                user=new_user,
-                feature_preference=defaults["feature"],
-                actor_preference=defaults["actor"],
-                director_preference=defaults["director"],
-                studio_preference=defaults["studio"]
-            )
-            user_preference.save()
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username taken")
+            return redirect("register")
 
-            login(request, new_user)
-            print("User created")
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "E-Mail taken")
+            return redirect("register")
 
-        else:
-            print("User already exists")
+        new_user = User.objects.create_user(username=username, email=email, password=password)
+        new_user.save()
 
-    return redirect("app_home")
+        user_preference = UserPreferences(
+            user=new_user,
+            feature_preference=defaults["feature"],
+            actor_preference=defaults["actor"],
+            director_preference=defaults["director"],
+            studio_preference=defaults["studio"]
+        )
+        user_preference.save()
+
+        login(request, new_user)
+        return redirect("app_home")
+
+    else:
+        return render(request, "main/register.html")
 
 
 def user_logout(request):
@@ -115,7 +128,28 @@ def search_movie(request):
 
 @login_required
 def user_profile(request):
-    return render(request, 'main/userprofile.html')
+    if request.method == "POST":
+        old_password = request.POST.get("old_password")
+        new_password = request.POST.get("new_password")
+        confirm_password = request.POST.get("confirm_new_password")
+
+        user = authenticate(username=request.user.username, password=old_password)
+        if user is not None:
+            if new_password == confirm_password:
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, "Password changed successfully")
+
+            else:
+                messages.error(request, "Passwords do not match")
+
+        else:
+            messages.error(request, "Old password is incorrect")
+
+        return redirect("user_profile")
+
+    else:
+        return render(request, 'main/userprofile.html')
 
 
 def user_rate(request):

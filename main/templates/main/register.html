@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{% static 'main/css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+</head>
+<body>
+    {% for message in messages %}
+        <h2>{{ message }}</h2>
+    {% endfor %}
+
+    <h3>Register</h3>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+
+        <div class="row">
+             <label for="username-2">
+                Username:
+                <input type="text" name="username" id="username-2" placeholder="Username" required="required" />
+            </label>
+        </div>
+
+        <div class="row">
+            <label for="email-2">
+                your email:
+                <input type="email" name="email" id="email-2" placeholder="Email" required="required" />
+            </label>
+        </div>
+         <div class="row">
+            <label for="password-2">
+                Password:
+                <input type="password" name="password" id="password-2" placeholder="Password" required="required" />
+            </label>
+        </div>
+         <div class="row">
+            <label for="repassword-2">
+                re-type Password:
+                <input type="password" name="confirm_password" id="repassword-2" placeholder="Confirm Password" required="required" />
+            </label>
+        </div>
+       <div class="row">
+         <button type="submit">sign up</button>
+       </div>
+    </form>
+
+    <a href="{% url 'login' %}">Login here</a>
+
+<script src="{% static 'main/js/jquery.js' %}"></script>
+<script src="{% static 'main/js/plugins.js' %}"></script>
+<script src="{% static 'main/js/plugins2.js' %}"></script>
+<script src="{% static 'main/js/custom.js' %}"></script>
+
+</body>
+</html>

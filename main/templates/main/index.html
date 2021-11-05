@@ -50,9 +50,6 @@
            </div>
 		   
         </form>
-        <div class="row">
-        	
-        </div>
     </div>
 </div>
 <!--end of login form popup-->
@@ -140,8 +137,8 @@
 						Hello, {{ user.username }}
 						<li class="btn"><a href="{% url 'logout' %}">Log Out</a></li>
 						{% else %}
-						<li class="loginLink"><a href="#">Log In</a></li>
-						<li class="btn signupLink"><a href="#">sign up</a></li>
+						<li class=""><a href="{% url 'login' %}">Log In</a></li>
+						<li class="btn"><a href="{% url 'register' %}">Register</a></li>
 						{% endif %}
 					</ul>
 				</div>
