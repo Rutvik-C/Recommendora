@@ -24,104 +24,140 @@
 </head>
 <body style="background-image: url('/static/main/images/uploads/ft-bg.jpg');">
 
-<!--login form popup-->
-<div class="login-wrapper" id="login-content">
-    <div class="login-content">
-        <a href="#" class="close">x</a>
-        <h3>Login</h3>
-        <form method="post" action="{% url 'login' %}">
-			{% csrf_token %}
-
-        	<div class="row">
-        		 <label for="username">
-                    Username:
-                    <input type="text" name="username" id="username" placeholder="Username" required="required" />
-                </label>
-        	</div>
-
-            <div class="row">
-            	<label for="password">
-                    Password:
-                    <input type="password" name="password" id="password" placeholder="Password" required="required" />
-                </label>
-            </div>
-           <div class="row">
-           	 <button type="submit">Login</button>
-           </div>
-		   
-        </form>
-    </div>
-</div>
-<!--end of login form popup-->
-<!--signup form popup-->
-<div class="login-wrapper"  id="signup-content">
-    <div class="login-content">
-        <a href="#" class="close">x</a>
-        <h3>sign up</h3>
-        <form method="post" action="{% url 'register' %}">
-			{% csrf_token %}
-
-            <div class="row">
-                 <label for="username-2">
-                    Username:
-                    <input type="text" name="username" id="username-2" placeholder="Username" required="required" />
-                </label>
-            </div>
-           
-            <div class="row">
-                <label for="email-2">
-                    your email:
-                    <input type="email" name="email" id="email-2" placeholder="Email" required="required" />
-                </label>
-            </div>
-             <div class="row">
-                <label for="password-2">
-                    Password:
-                    <input type="password" name="password" id="password-2" placeholder="Password" required="required" />
-                </label>
-            </div>
-             <div class="row">
-                <label for="repassword-2">
-                    re-type Password:
-                    <input type="password" name="confirm_password" id="repassword-2" placeholder="Confirm Password" required="required" />
-                </label>
-            </div>
-           <div class="row">
-             <button type="submit">sign up</button>
-           </div>
-        </form>
-    </div>
-</div>
-<!--end of signup form popup-->
-
-<!-- BEGIN | Header -->
 <header class="ht-header">
 	<div class="container">
 		<nav class="navbar navbar-default navbar-custom">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header logo">
-				    <a href="{% url 'app_home' %}"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt="" width="119" height="58"></a>
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <a href="index-2.html"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt="" width="119" height="58"></a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'app_home' %}">Home</a>
+						</li>
+
+					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
-						<li class="signupLink"><a href="#">Sign Up</a></li>
+						<li class="btn"><a href="{% url 'login' %}">Log In</a></li>
 					</ul>
 				</div>
 			<!-- /.navbar-collapse -->
 	    </nav>
-	    
+
 	    <!-- top search form -->
+
 	</div>
 </header>
-<!-- END | Header -->
 
+<div class="hero user-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-15">
+				<div class="hero-ct">
+					<h1>Create a new account</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single">
+	<div class="container">
+		<div class="row ipad-width">
+
+			<div class="col-md-13 col-sm-12 col-xs-13">
+
+                {% for message in messages %}
+                <h4>{{ message }}</h4>
+                {% endfor %}
+
+				<div class="form-style-1 user-pro" action="#">
+					<form method="post" action="{% url 'register' %}">
+                        {% csrf_token %}
+
+						<h4>Profile details</h4>
+						<div class="row">
+							<div class="col-md-6 form-it">
+								<label>Username</label>
+								<input type="text" name="username" id="username" placeholder="Username" required="required" />
+							</div>
+							<div class="col-md-6 form-it">
+								<label>E-Mail</label>
+								<input type="email" name="email" id="email-2" placeholder="Email" required="required" />
+							</div>
+						</div>
+                        <div class="row">
+							<div class="col-md-6 form-it">
+								<label>Password</label>
+								<input type="password" name="password" id="password-2" placeholder="Password" required="required" />
+							</div>
+							<div class="col-md-6 form-it">
+								<label>Confirm Password</label>
+								<input type="password" name="confirm_password" id="repassword-2" placeholder="Confirm Password" required="required" />
+							</div>
+						</div>
+                        <div class="row">
+							<div class="col-md-2">
+								<input class="submit" type="submit" value="Register">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- footer section-->
+<footer class="ht-footer">
+	<div class="container">
+		<div class="flex-parent-ft">
+			<div class="flex-child-ft item1">
+				 <a href="index-2.html"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt=""></a>
+				<p>Reach out at help@recommendora.com</p>
+			</div>
+			<div class="flex-child-ft item2">
+				<h4>Menu</h4>
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Search Movie</a></li>
+					<li><a href="#">Friends</a></li>
+				</ul>
+			</div>
+
+			<div class="flex-child-ft item4">
+				<h4>Follow us</h4>
+				<div class="social-link">
+					<a href="#"><i class="ion-social-facebook"></i></a>
+					<a href="#"><i class="ion-social-twitter"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ft-copyright">
+		<div class="backtotop" >
+			<p style="text-align: right;"><a href="#" id="back-to-top">Back to top  <i class="ion-ios-arrow-thin-up"></i></a></p>
+		</div>
+	</div>
+</footer>
 <!-- end of footer section-->
 
 <script src="{% static 'main/js/jquery.js' %}"></script>
 <script src="{% static 'main/js/plugins.js' %}"></script>
 <script src="{% static 'main/js/plugins2.js' %}"></script>
 <script src="{% static 'main/js/custom.js' %}"></script>
+
 </body>
 
 
