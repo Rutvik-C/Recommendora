@@ -112,7 +112,7 @@
 							<span></span>
 						</div>
 				    </div>
-				    <a href="index-2.html"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt="" width="119" height="58"></a>
+				    <a href="{% url 'app_home' %}"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt="" width="119" height="58"></a>
 			    </div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -121,34 +121,34 @@
 							<a href="#page-top"></a>
 						</li>
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" href="/">Home</a>
+							<a class="btn btn-default dropdown-toggle lv1">Home</a>
 						</li>
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" href="./searchmovie">Search movies</a>
+							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'search_movie' %}">Search movies</a>
 						</li>
-						
+
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1">Friends</a>
 						</li>
-						
+
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" href="./userprofile">Profile</a>
+							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Profile</a>
 						</li>
 
 						{% if user.is_authenticated %}
 						Hello, {{ user.username }}
 						<li class="btn"><a href="{% url 'logout' %}">Log Out</a></li>
 						{% else %}
-						<li class="loginLink"><a href="#">Log In</a></li>
-						<li class="btn signupLink"><a href="#">sign up</a></li>
+						<li class=""><a href="{% url 'login' %}">Log In</a></li>
+						<li class="btn"><a href="{% url 'register' %}">Register</a></li>
 						{% endif %}
 					</ul>
 				</div>
 			<!-- /.navbar-collapse -->
 	    </nav>
-	    
+
 	    <!-- top search form -->
 	    <div class="top-search">
 			<input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
