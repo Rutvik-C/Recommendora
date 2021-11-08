@@ -182,8 +182,10 @@
 							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Profile</a>
 						</li>
 
-						<li>{% if user.is_authenticated %}
-						Hello, {{ user.username }}</li>
+						<li class="dropdown first">
+						{% if user.is_authenticated %}
+							<a class="btn btn-default dropdown-toggle lv1">Hello, {{ user.username }}</a>
+						</li>
 						<li class="btn"><a href="{% url 'logout' %}">Log Out</a></li>
 						{% else %}
 						<li class=""><a href="{% url 'login' %}">Log In</a></li>

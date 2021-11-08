@@ -29,6 +29,14 @@
     height: 400px;
     object-fit: cover;
 }
+
+		.myImg2 {
+    float: left;
+    width:  185px;
+    height: 285px;
+    object-fit: cover;
+}
+
 		/*the container must be positioned relative:*/
 		.autocomplete {
 		  position: relative;
@@ -72,75 +80,6 @@
 </head>
 <body>
 
-<!--login form popup-->
-<div class="login-wrapper" id="login-content">
-    <div class="login-content">
-        <a href="#" class="close">x</a>
-        <h3>Login</h3>
-        <form method="post" action="{% url 'login' %}">
-			{% csrf_token %}
-
-        	<div class="row">
-        		 <label for="username">
-                    Username:
-                    <input type="text" name="username" id="username" placeholder="Username" required="required" />
-                </label>
-        	</div>
-
-            <div class="row">
-            	<label for="password">
-                    Password:
-                    <input type="password" name="password" id="password" placeholder="Password" required="required" />
-                </label>
-            </div>
-           <div class="row">
-           	 <button type="submit">Login</button>
-           </div>
-		   
-        </form>
-    </div>
-</div>
-<!--end of login form popup-->
-<!--signup form popup-->
-<div class="login-wrapper"  id="signup-content">
-    <div class="login-content">
-        <a href="#" class="close">x</a>
-        <h3>sign up</h3>
-        <form method="post" action="{% url 'register' %}">
-			{% csrf_token %}
-
-            <div class="row">
-                 <label for="username-2">
-                    Username:
-                    <input type="text" name="username" id="username-2" placeholder="Username" required="required" />
-                </label>
-            </div>
-           
-            <div class="row">
-                <label for="email-2">
-                    your email:
-                    <input type="email" name="email" id="email-2" placeholder="Email" required="required" />
-                </label>
-            </div>
-             <div class="row">
-                <label for="password-2">
-                    Password:
-                    <input type="password" name="password" id="password-2" placeholder="Password" required="required" />
-                </label>
-            </div>
-             <div class="row">
-                <label for="repassword-2">
-                    re-type Password:
-                    <input type="password" name="confirm_password" id="repassword-2" placeholder="Confirm Password" required="required" />
-                </label>
-            </div>
-           <div class="row">
-             <button type="submit">sign up</button>
-           </div>
-        </form>
-    </div>
-</div>
-<!--end of signup form popup-->
 
 <!-- BEGIN | Header -->
 <header class="ht-header">
@@ -181,8 +120,11 @@
 							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Profile</a>
 						</li>
 
+						<li class="dropdown first">
 						{% if user.is_authenticated %}
-						Hello, {{ user.username }}
+							<a class="btn btn-default dropdown-toggle lv1">Hello, {{ user.username }}</a>
+						</li>
+
 						<li class="btn"><a href="{% url 'logout' %}">Log Out</a></li>
 						{% else %}
 						<li class=""><a href="{% url 'login' %}">Log In</a></li>
@@ -248,7 +190,7 @@
 				            		<div class="slide-it">
 				            			<div class="movie-item">
 					            			<div class="mv-img">
-					            				<img src="{{ movie.image_url }}" alt=""style="object-fit: cover; width: 185;  height: 284;">
+					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
 					            			</div> 
 					            			<div class="hvr-inner">
 					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
@@ -281,7 +223,7 @@
 				            		<div class="slide-it">
 				            			<div class="movie-item">
 					            			<div class="mv-img">
-					            				<img src="{{ movie.image_url }}" alt="" style="object-fit: cover; width: 185;  height: 284;">
+					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
 					            			</div>
 					            			<div class="hvr-inner">
 					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
@@ -314,7 +256,7 @@
 				            		<div class="slide-it">
 				            			<div class="movie-item">
 					            			<div class="mv-img">
-					            				<img src="{{ movie.image_url }}" alt="" style="object-fit: cover; width: 185;  height: 284;">
+					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
 					            			</div>
 					            			<div class="hvr-inner">
 					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
@@ -347,7 +289,7 @@
 				            		<div class="slide-it">
 				            			<div class="movie-item">
 					            			<div class="mv-img">
-					            				<img src="{{ movie.image_url }}" alt="" style="object-fit: cover; width: 185;  height: 284;">
+					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
 					            			</div>
 					            			<div class="hvr-inner">
 					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
