@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import *
 import json
 import pickle
+from .utils import *
 
 with open("ml_utils/recommendation/feature_movie_rec.pkl", "rb") as f:
     model_feature = pickle.load(f)

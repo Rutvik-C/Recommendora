@@ -21,8 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b39787e7-2e39-4078-8826-a4dd27ff555b" name="Default Changelist" comment="Home page rec done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
