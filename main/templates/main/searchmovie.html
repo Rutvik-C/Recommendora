@@ -121,7 +121,7 @@
 							<a href="#page-top"></a>
 						</li>
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1">Home</a>
+							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'app_home' %}">Home</a>
 						</li>
 						<li class="dropdown first">
 							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'search_movie' %}">Search movies</a>
@@ -164,7 +164,7 @@
 				<div class="hero-ct">
 					<h1> Search Movie</h1>
 					<ul class="breadcumb">
-						<li class="active"><a href="#">Home</a></li>
+						<li class="active"><a href="{% url 'app_home' %}">Home</a></li>
 						<li> <span class="ion-ios-arrow-right"></span> Search</li>
 					</ul>
 				</div>
@@ -418,52 +418,50 @@
 				<div class="sidebar">
 					<div class="searh-form">
 						<h4 class="sb-title">Search for movie</h4>
+
 						<form class="form-style-1" action="#">
 							<div class="row">
 								<div class="col-md-12 form-it">
-									<label>Movie name</label>
+									<label>Actor name</label>
 									<input type="text" placeholder="Enter keywords">
 								</div>
 								<div class="col-md-12 form-it">
-									<label>Genres & Subgenres</label>
+									<label>Director name</label>
+									<input type="text" placeholder="Enter keywords">
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Production Company</label>
+									<input type="text" placeholder="Enter keywords">
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Language</label>
+									<input type="text" placeholder="Enter keywords">
+								</div>
+								<div class="col-md-12 form-it">
+									<label>Genre</label>
 									<div class="group-ip">
 										<select
 											name="skills" multiple="" class="ui fluid dropdown">
 											<option value="">Enter to filter genres</option>
-											<option value="Action1">Action 1</option>
-					                        <option value="Action2">Action 2</option>
-					                        <option value="Action3">Action 3</option>
-					                        <option value="Action4">Action 4</option>
-					                        <option value="Action5">Action 5</option>
+											{% for genre in all_genre %}
+											<option value="{{ genre }}">{{ genre }}</option>
+					                        {% endfor %}
 										</select>
 									</div>	
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Rating Range</label>
-									<select>
-									  <option value="range">-- Select the rating range below --</option>
-									  <option value="saab">-- Select the rating range below --</option>
-									</select>
 								</div>
 								<div class="col-md-12 form-it">
 									<label>Release Year</label>
 									<div class="row">
 										<div class="col-md-6">
-											<select>
-											  <option value="range">From</option>
-											  <option value="number">10</option>
-											</select>
+											<input type="number" placeholder="From">
 										</div>
 										<div class="col-md-6">
-											<select>
-											  <option value="range">To</option>
-											  <option value="number">20</option>
-											</select>
+											<input type="number" placeholder="To">
 										</div>
 									</div>
 								</div>
 								<div class="col-md-12 ">
-									<input class="submit" type="submit" value="submit">
+									<input class="submit" type="submit" value="Search">
 								</div>
 							</div>
 						</form>

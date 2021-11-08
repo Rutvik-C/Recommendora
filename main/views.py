@@ -20,6 +20,7 @@ with open("ml_utils/recommendation/feature_arrays.json", "r") as f:
     data = json.load(f)
 with open("ml_utils/recommendation/feature_default.json", "r") as f:
     defaults = json.load(f)
+all_movies = json.dumps(get_all_movies())
 
 
 def home_page(request):
@@ -56,7 +57,8 @@ def home_page(request):
         "feature_movies": feature_rec,
         "actor_movies": actor_rec,
         "director_movies": director_rec,
-        "studio_movies": studio_rec
+        "studio_movies": studio_rec,
+        "all_movies": all_movies
     }
     return render(request, "main/index.html", context_dictionary)
 
@@ -124,7 +126,11 @@ def user_logout(request):
 
 
 def search_movie(request):
-    return render(request, 'main/searchmovie.html')
+    context_dictionary = {
+        "all_genre": get_all_genre()
+    }
+
+    return render(request, 'main/searchmovie.html', context_dictionary)
 
 
 @login_required
