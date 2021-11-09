@@ -69,80 +69,6 @@
 </head>
 <body>
 
-<!--end of preloading-->
-<!--login form popup-->
-<div class="login-wrapper" id="login-content">
-    <div class="login-content">
-        <a href="#" class="close">x</a>
-        <h3>Login</h3>
-        <form method="post" action="{% url 'login' %}">
-			{% csrf_token %}
-
-        	<div class="row">
-        		 <label for="username">
-                    Username:
-                    <input type="text" name="username" id="username" placeholder="Username" required="required" />
-                </label>
-        	</div>
-
-            <div class="row">
-            	<label for="password">
-                    Password:
-                    <input type="password" name="password" id="password" placeholder="Password" required="required" />
-                </label>
-            </div>
-           <div class="row">
-           	 <button type="submit">Login</button>
-           </div>
-		   
-        </form>
-        <div class="row">
-        	
-        </div>
-    </div>
-</div>
-<!--end of login form popup-->
-<!--signup form popup-->
-<div class="login-wrapper"  id="signup-content">
-    <div class="login-content">
-        <a href="#" class="close">x</a>
-        <h3>sign up</h3>
-        <form method="post" action="{% url 'register' %}">
-			{% csrf_token %}
-
-            <div class="row">
-                 <label for="username-2">
-                    Username:
-                    <input type="text" name="username" id="username-2" placeholder="Username" required="required" />
-                </label>
-            </div>
-           
-            <div class="row">
-                <label for="email-2">
-                    your email:
-                    <input type="email" name="email" id="email-2" placeholder="Email" required="required" />
-                </label>
-            </div>
-             <div class="row">
-                <label for="password-2">
-                    Password:
-                    <input type="password" name="password" id="password-2" placeholder="Password" required="required" />
-                </label>
-            </div>
-             <div class="row">
-                <label for="repassword-2">
-                    re-type Password:
-                    <input type="password" name="confirm_password" id="repassword-2" placeholder="Confirm Password" required="required" />
-                </label>
-            </div>
-           <div class="row">
-             <button type="submit">sign up</button>
-           </div>
-        </form>
-    </div>
-</div>
-<!--end of signup form popup-->
-
 <!-- BEGIN | Header -->
 <header class="ht-header">
 	<div class="container">
@@ -179,15 +105,14 @@
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
 						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Profile</a>
-						</li>
-
-						<li class="dropdown first">
 						{% if user.is_authenticated %}
-							<a class="btn btn-default dropdown-toggle lv1">Hello, {{ user.username }}</a>
+							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Hello, {{ user.username }}</a>
 						</li>
 						<li class="btn"><a href="{% url 'logout' %}">Log Out</a></li>
 						{% else %}
+						<li class="dropdown first">
+							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Profile</a>
+						</li>
 						<li class=""><a href="{% url 'login' %}">Log In</a></li>
 						<li class="btn"><a href="{% url 'register' %}">Register</a></li>
 						{% endif %}
@@ -224,7 +149,7 @@
 		<div class="row ipad-width">
 			<div class="col-md-8 col-sm-12 col-xs-12">
 				<div class="topbar-filter">
-					<p>Found <span>1,608 movies</span> in total</p>
+					<p>Found <span>{{ search_movies | length }}</span> Movies</p>
 					<label>Sort by:</label>
 					<select>
 						<option value="popularity">Popularity Descending</option>
@@ -237,210 +162,22 @@
 
 				</div>
 				<div class="flex-wrap-movielist">
+
+						{% for movie in search_movies %}
+
 						<div class="movie-item-style-2 movie-item-style-1">
-							<img src="images/uploads/mv1.jpg" alt="">
+							<img src="{{ movie.image_url }}" alt="">
 							<div class="hvr-inner">
 	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 	            			</div>
 							<div class="mv-item-infor">
-								<h6><a href="#">oblivion</a></h6>
+								<h6><a href="#">{{ movie.title }}</a></h6>
 								<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
 							</div>
-						</div>					
-						<div class="movie-item-style-2 movie-item-style-1">
-							<img src="images/uploads/mv2.jpg" alt="">
-							<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-							<div class="mv-item-infor">
-								<h6><a href="#">into the wild</a></h6>
-								<p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-							</div>
 						</div>
-					
-					
-						<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item3.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">Die hard</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-					
-					
-						<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item4.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">The walk</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-							<img src="images/uploads/mv3.jpg" alt="">
-							<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-							<div class="mv-item-infor">
-								<h6><a href="#">blade runner  </a></h6>
-								<p class="rate"><i class="ion-android-star"></i><span>7.3</span> /10</p>
-							</div>
-						</div>
-						<div class="movie-item-style-2 movie-item-style-1">
-							<img src="images/uploads/mv4.jpg" alt="">
-							<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-							<div class="mv-item-infor">
-								<h6><a href="#">Mulholland pride</a></h6>
-								<p class="rate"><i class="ion-android-star"></i><span>7.2</span> /10</p>
-							</div>
-						</div>
-						<div class="movie-item-style-2 movie-item-style-1">
-							<img src="images/uploads/mv5.jpg" alt="">
-							<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-							<div class="mv-item-infor">
-								<h6><a href="#">skyfall: evil of boss</a></h6>
-								<p class="rate"><i class="ion-android-star"></i><span>7.0</span> /10</p>
-							</div>
-						</div>
-						<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item1.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">Interstellar</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item2.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">The revenant</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-it10.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">harry potter</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-						<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-it11.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">guardians galaxy</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-it12.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">the godfather</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-						<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item6.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">blue velvet</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item7.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">gravity</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item8.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">southpaw</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-it9.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">jurassic park</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item9.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">the forest</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item10.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">spectre</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item11.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">strager things</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
-	            		<div class="movie-item-style-2 movie-item-style-1">
-	            			<img src="images/uploads/mv-item12.jpg" alt="">
-	            			<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-	            			</div>
-	            			<div class="mv-item-infor">
-	            				<h6><a href="#">la la land</a></h6>
-	            				<p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
-	            			</div>
-	            		</div>
+
+						{% endfor %}
+
 				</div>		
 				<div class="topbar-filter">
 					<label>Movies per page:</label>
@@ -466,29 +203,31 @@
 					<div class="searh-form">
 						<h4 class="sb-title">Search for movie</h4>
 
-						<form class="form-style-1" action="#">
+						<form class="form-style-1" method="post" action="{% url 'search_movie' %}">
+							{% csrf_token %}
+
 							<div class="row">
 								<div class="col-md-12 form-it autocomplete">
 									<label>Actor name</label>
-									<input id="myActor" type="text" placeholder="Enter keywords">
+									<input id="myActor" name="actor" type="text" placeholder="Enter keywords">
 								</div>
 								<div class="col-md-12 form-it autocomplete">
 									<label>Director name</label>
-									<input id="myDirector" type="text" placeholder="Enter keywords">
+									<input id="myDirector" name="director" type="text" placeholder="Enter keywords">
 								</div>
 								<div class="col-md-12 form-it autocomplete">
 									<label>Production Company</label>
-									<input id="myProduction" type="text" placeholder="Enter keywords">
+									<input id="myProduction" name="studio" type="text" placeholder="Enter keywords">
 								</div>
 								<div class="col-md-12 form-it autocomplete">
 									<label>Language</label>
-									<input id="myLanguage" type="text" placeholder="Enter keywords">
+									<input id="myLanguage" name="language" type="text" placeholder="Enter keywords">
 								</div>
 								<div class="col-md-12 form-it">
 									<label>Genre</label>
 									<div class="group-ip">
 										<select
-											name="skills" multiple="" class="ui fluid dropdown">
+											name="genre" multiple="" class="ui fluid dropdown">
 											<option value="">Enter to filter genres</option>
 											{% for genre in all_genre %}
 											<option value="{{ genre }}">{{ genre }}</option>
@@ -496,17 +235,17 @@
 										</select>
 									</div>	
 								</div>
-								<div class="col-md-12 form-it">
-									<label>Release Year</label>
-									<div class="row">
-										<div class="col-md-6">
-											<input type="number" placeholder="From">
-										</div>
-										<div class="col-md-6">
-											<input type="number" placeholder="To">
-										</div>
-									</div>
-								</div>
+<!--								<div class="col-md-12 form-it">-->
+<!--									<label>Release Year</label>-->
+<!--									<div class="row">-->
+<!--										<div class="col-md-6">-->
+<!--											<input type="number" placeholder="From">-->
+<!--										</div>-->
+<!--										<div class="col-md-6">-->
+<!--											<input type="number" placeholder="To">-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
 								<div class="col-md-12">
 									<input class="submit" type="submit" value="Search">
 								</div>
@@ -651,14 +390,19 @@
 	}
 	
 	/*An array containing all the country names in the world:*/
-	var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+	var movies = {{ all_movies | safe }}
+	var languages = {{ all_languages | safe }}
+	var studios = {{ all_studios | safe }}
+	var actors = {{ all_actors | safe }}
+	var directors = {{ all_directors | safe }}
+
 
 	/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-	autocomplete(document.getElementById("mySearch"), countries);
-	autocomplete(document.getElementById("myActor"), countries);
-	autocomplete(document.getElementById("myDirector"), countries);
-	autocomplete(document.getElementById("myProduction"), countries);
-	autocomplete(document.getElementById("myLanguage"), countries);
+	autocomplete(document.getElementById("mySearch"), movies);
+	autocomplete(document.getElementById("myActor"), actors);
+	autocomplete(document.getElementById("myDirector"), directors);
+	autocomplete(document.getElementById("myProduction"), studios);
+	autocomplete(document.getElementById("myLanguage"), languages);
 	</script>
 <script src="{% static 'main/js/jquery.js' %}"></script>
 <script src="{% static 'main/js/plugins.js' %}"></script>

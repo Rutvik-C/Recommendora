@@ -484,11 +484,10 @@
 	}
 	
 	/*An array containing all the country names in the world:*/
-	var countries = {{ all_movies | safe }}
-	console.log("Hey " + countries)
+	var movies = {{ all_movies | safe }}
 
 	/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-	autocomplete(document.getElementById("myInput"), countries);
+	autocomplete(document.getElementById("myInput"), movies);
 	</script>
 
 <script src="{% static 'main/js/jquery.js' %}"></script>

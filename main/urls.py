@@ -6,9 +6,9 @@ urlpatterns = [
     path("login/", views.user_login, name="login"),
     path("register/", views.register, name="register"),
     path("logout/", views.user_logout, name="logout"),
-    path("searchmovie/", views.search_movie, name="search_movie"),
-    path("userprofile/", views.user_profile, name="user_profile"),
-    path("userrate/", views.user_rate, name="user_rate"),
-    path("userfavorite/", views.user_favorite, name="user_favorite"),
+    path("search_movie/", views.search_movie, name="search_movie"),
+    path("user_profile/", views.user_profile, name="user_profile"),
+    path("user_rate/", views.user_rate, name="user_rate"),
+    path("user_favorite/", views.user_favorite, name="user_favorite"),
 ]
 

@@ -20,7 +20,16 @@ with open("ml_utils/recommendation/feature_arrays.json", "r") as f:
     data = json.load(f)
 with open("ml_utils/recommendation/feature_default.json", "r") as f:
     defaults = json.load(f)
-all_movies = json.dumps(get_all_movies())
+
+print("[+] Fetching movie info")
+movie_names, languages, studio = get_all_movie_info()
+all_movies = json.dumps(movie_names)
+all_languages = json.dumps(languages)
+all_studios = json.dumps(studio)
+print("[+] Fetching actor info")
+all_actors = json.dumps(get_all_actor())
+print("[+] Fetching director info")
+all_directors = json.dumps(get_all_director())
 
 
 def home_page(request):
@@ -126,8 +135,73 @@ def user_logout(request):
 
 
 def search_movie(request):
+    result = None
+
+    if request.method == "POST":
+        d = dict(request.POST)
+        actor = d["actor"][0]
+        director = d["director"][0]
+        production_studio = d["studio"][0]
+        language = d["language"][0]
+        if "genre" in d:
+            genre = d["genre"]
+        else:
+            genre = ""
+
+        # print(actor, type(actor))
+        # print(director, type(director))
+        # print(production_studio, type(production_studio))
+        # print(language, type(language))
+        # print(genre, type(genre))
+
+        if actor != "":
+            _actor = Actor.objects.filter(name=actor).first()
+            result = set(_actor.movie_set.all())
+
+        if director != "":
+            _director = Director.objects.filter(name=director).first()
+            temp_dir = set(_director.movie_set.all())
+            if result is None:
+                result = temp_dir
+            else:
+                result = result.intersection(temp_dir)
+
+        if production_studio != "":
+            temp_studio = set(Movie.objects.filter(production_company__contains=production_studio))
+            if result is None:
+                result = temp_studio
+            else:
+                result = result.intersection(temp_studio)
+
+        if language != "":
+            temp_lang = set(Movie.objects.filter(language__contains=language))
+            if result is None:
+                result = temp_lang
+            else:
+                result = result.intersection(temp_lang)
+
+        if genre != "":
+            temp_genre = set()
+            for g in genre:
+                _genre = Genre.objects.filter(type=g).first()
+                temp_genre = temp_genre.union(set(_genre.movie_set.all()))
+
+            if result is None:
+                result = temp_genre
+            else:
+                result = result.intersection(temp_genre)
+
+    if result is None:
+        result = []
+
     context_dictionary = {
-        "all_genre": get_all_genre()
+        "all_actors": all_actors,
+        "all_directors": all_directors,
+        "all_languages": all_languages,
+        "all_studios": all_studios,
+        "all_movies": all_movies,
+        "all_genre": get_all_genre(),
+        "search_movies": list(result)
     }
 
     return render(request, 'main/searchmovie.html', context_dictionary)
