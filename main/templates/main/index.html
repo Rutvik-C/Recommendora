@@ -152,15 +152,15 @@
 
 					<div class="movie-item">
 						<div class="mv-img">
-							<a href="#"><img class="myImg" src="{{ movie.image_url }}" alt=""></a>
+							<a href="{% url 'movie_info' %}?id={{ movie.id }}"><img class="myImg" src="{{ movie.image_url }}" alt=""></a>
 						</div>
 						<div class="title-in">
 							<div class="cate">
 								{% for gen in movie.genre.all %}
-								<span class="blue"><a href="#">{{ gen.type }}</a></span>
+								<span class="blue"><a>{{ gen.type }}</a></span>
 								{% endfor %}
 							</div>
-							<h6><a href="#" style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+							<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}" style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
 							<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a">  {{ movie.views }}</span></p>
 						</div>
 					</div>
@@ -192,10 +192,10 @@
 					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
 					            			</div> 
 					            			<div class="hvr-inner">
-					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="#">{{ movie.title }}</a></h6>
+					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
 					            				<p><i class="fas fa-eye"></i><span>  {{ movie.views }}</span></p>
 					            			</div>
 					            		</div>
@@ -225,10 +225,10 @@
 					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
 					            			</div>
 					            			<div class="hvr-inner">
-					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="#">{{ movie.title }}</a></h6>
+					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
 					            				<p><i class="ion-android-star"></i><span>  {{ movie.views }}</span></p>
 					            			</div>
 					            		</div>
@@ -258,10 +258,10 @@
 					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
 					            			</div>
 					            			<div class="hvr-inner">
-					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="#">{{ movie.title }}</a></h6>
+					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
 					            				<p><i class="ion-android-star"></i><span>  {{ movie.views }}</span></p>
 					            			</div>
 					            		</div>
@@ -291,10 +291,10 @@
 					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
 					            			</div>
 					            			<div class="hvr-inner">
-					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="#">{{ movie.title }}</a></h6>
+					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
 					            				<p><i class="ion-android-star"></i><span>  {{ movie.views }}</span></p>
 					            			</div>
 					            		</div>

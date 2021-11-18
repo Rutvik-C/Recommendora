@@ -1,3 +1,5 @@
+from django.shortcuts import render
+
 from .models import *
 
 
@@ -46,3 +48,9 @@ def get_all_director():
         result.append(director.name)
 
     return result
+
+
+def not_found_404(request):
+    response = render(request, "main/404.html")
+    response.status_code = 404
+    return response

@@ -4,7 +4,7 @@
 <!-- moviegrid07:29-->
 <head>
 	<!-- Basic need -->
-	<title>Search Movie</title>
+	<title>Find Friend</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -123,7 +123,7 @@
 
 	    <!-- top search form -->
 	    <div class="top-search autocomplete">
-					<input id="mySearch" type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
+					<input id="mySearch" type="text" placeholder="Enter name of friend">
 	    </div>
 	</div>
 </header>
@@ -134,10 +134,10 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="hero-ct">
-					<h1> Search Movie</h1>
+					<h1> Find Friend</h1>
 					<ul class="breadcumb">
 						<li class="active"><a href="{% url 'app_home' %}">Home</a></li>
-						<li> <span class="ion-ios-arrow-right"></span> Search</li>
+						<li> <span class="ion-ios-arrow-right"></span>Find Friend</li>
 					</ul>
 				</div>
 			</div>
@@ -149,7 +149,7 @@
 		<div class="row ipad-width">
 			<div class="col-md-8 col-sm-12 col-xs-12">
 				<div class="topbar-filter">
-					<p>Found <span>{{ search_movies | length }}</span> Movies</p>
+					<p>Found <span>{{ search_movies | length }}</span> Friends</p>
 
 				</div>
 				<div class="flex-wrap-movielist">
@@ -159,74 +159,18 @@
 						<div class="movie-item-style-2 movie-item-style-1">
 							<img src="{{ movie.image_url }}" alt="">
 							<div class="hvr-inner">
-	            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            				<a  href="moviesingle.html"> Add Friend <i class="ion-android-arrow-dropright"></i> </a>
+                                <a  href="moviesingle.html"> View Profile <i class="ion-android-arrow-dropright"></i> </a>
+                                <a  href="moviesingle.html">Remove Friend <i class="ion-android-arrow-dropright"></i> </a>
 	            			</div>
 							<div class="mv-item-infor">
-								<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
-								<p class="rate"><i class="ion-android-star"></i><span>{{ movie.views }}</span></p>
+								<h6><a href="#">{{ movie.title }}</a></h6>
+								<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
 							</div>
 						</div>
 
 						{% endfor %}
-
 				</div>		
-
-			</div>
-			<div class="col-md-4 col-sm-12 col-xs-12">
-				<div class="sidebar">
-					<div class="searh-form">
-						<h4 class="sb-title">Search for movie</h4>
-
-						<form class="form-style-1" method="post" action="{% url 'search_movie' %}">
-							{% csrf_token %}
-
-							<div class="row">
-								<div class="col-md-12 form-it autocomplete">
-									<label>Actor name</label>
-									<input id="myActor" name="actor" type="text" placeholder="Enter keywords">
-								</div>
-								<div class="col-md-12 form-it autocomplete">
-									<label>Director name</label>
-									<input id="myDirector" name="director" type="text" placeholder="Enter keywords">
-								</div>
-								<div class="col-md-12 form-it autocomplete">
-									<label>Production Company</label>
-									<input id="myProduction" name="studio" type="text" placeholder="Enter keywords">
-								</div>
-								<div class="col-md-12 form-it autocomplete">
-									<label>Language</label>
-									<input id="myLanguage" name="language" type="text" placeholder="Enter keywords">
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Genre</label>
-									<div class="group-ip">
-										<select
-											name="genre" multiple="" class="ui fluid dropdown">
-											<option value="">Enter to filter genres</option>
-											{% for genre in all_genre %}
-											<option value="{{ genre }}">{{ genre }}</option>
-					                        {% endfor %}
-										</select>
-									</div>	
-								</div>
-<!--								<div class="col-md-12 form-it">-->
-<!--									<label>Release Year</label>-->
-<!--									<div class="row">-->
-<!--										<div class="col-md-6">-->
-<!--											<input type="number" placeholder="From">-->
-<!--										</div>-->
-<!--										<div class="col-md-6">-->
-<!--											<input type="number" placeholder="To">-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-								<div class="col-md-12">
-									<input class="submit" type="submit" value="Search">
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

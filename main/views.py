@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseNotFound
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -234,7 +235,32 @@ def user_profile(request):
 
 
 def movie_information(request):
-    return render(request, "main/movie.html")
+    try:
+        if "id" in request.GET:
+            movie_id = int(request.GET.get("id"))
+            print(movie_id)
+
+            movie = Movie.objects.filter(id=movie_id)
+            if len(movie) != 0:
+                movie = movie.first()
+                if "=" in movie.trailer_link:
+                    trailer = movie.trailer_link.split("=")[1]
+
+                else:
+                    trailer = "eSIJddEieLI"
+
+                context_dict = {
+                    "movie": movie,
+                    "trailer": trailer
+                }
+
+                return render(request, "main/movie.html", context_dict)
+
+        return not_found_404(request)
+
+    except Exception as e:
+        print(e)
+        return not_found_404(request)
 
 
 def user_rate(request):
