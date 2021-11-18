@@ -233,6 +233,10 @@ def user_profile(request):
         return render(request, 'main/userprofile.html')
 
 
+def movie_information(request):
+    return render(request, "main/movie.html")
+
+
 def user_rate(request):
     return render(request, 'main/userrate.html')
 
