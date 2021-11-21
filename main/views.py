@@ -173,15 +173,22 @@ def movie_information(request):
             movie = Movie.objects.filter(id=movie_id)
             if len(movie) != 0:
                 movie = movie.first()
+
                 if "=" in movie.trailer_link:
                     trailer = movie.trailer_link.split("=")[1]
 
                 else:
                     trailer = "eSIJddEieLI"
 
+                feature_rec, actor_rec, director_rec, studio_rec = movie.get_movie_recommendation()
+
                 context_dict = {
                     "movie": movie,
-                    "trailer": trailer
+                    "trailer": trailer,
+                    "feature_movies": feature_rec,
+                    "actor_movies": actor_rec,
+                    "director_movies": director_rec,
+                    "studio_movies": studio_rec,
                 }
 
                 return render(request, "main/movie.html", context_dict)

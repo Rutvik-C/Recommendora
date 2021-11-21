@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import json
 import pickle
+from scipy import sparse
 
 
 with open("ml_utils/recommendation/feature_movie_rec.pkl", "rb") as f:
@@ -14,6 +15,10 @@ with open("ml_utils/recommendation/studio_movie_rec.pkl", "rb") as f:
     model_studio = pickle.load(f)
 with open("ml_utils/recommendation/feature_arrays.json", "r") as f:
     data = json.load(f)
+X_feature_vectors = sparse.load_npz("ml_utils/recommendation/feature_vectors.npz")
+X_actor_vectors = sparse.load_npz("ml_utils/recommendation/actor_vectors.npz")
+X_director_vectors = sparse.load_npz("ml_utils/recommendation/director_vectors.npz")
+X_studio_vectors = sparse.load_npz("ml_utils/recommendation/studio_vectors.npz")
 
 
 class Actor(models.Model):
@@ -98,6 +103,28 @@ class Movie(models.Model):
                 result = result.intersection(temp_genre)
 
         return result
+
+    def get_movie_recommendation(self):
+        feature_rec, actor_rec, director_rec, studio_rec = [], [], [], []
+
+        y = data["title"]
+        dist, ind = model_feature.kneighbors(X_feature_vectors[self.id], n_neighbors=8)
+        for i in ind[0]:
+            feature_rec.append(Movie.objects.filter(title=y[i]).first())
+
+        dist, ind = model_actor.kneighbors(X_actor_vectors[self.id], n_neighbors=8)
+        for i in ind[0]:
+            actor_rec.append(Movie.objects.filter(title=y[i]).first())
+
+        dist, ind = model_director.kneighbors(X_director_vectors[self.id], n_neighbors=8)
+        for i in ind[0]:
+            director_rec.append(Movie.objects.filter(title=y[i]).first())
+
+        dist, ind = model_studio.kneighbors(X_studio_vectors[self.id], n_neighbors=8)
+        for i in ind[0]:
+            studio_rec.append(Movie.objects.filter(title=y[i]).first())
+
+        return feature_rec, actor_rec, director_rec, studio_rec
 
 
 class AuthorizedUser(models.Model):
