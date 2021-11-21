@@ -63,7 +63,8 @@ class Movie(models.Model):
         return self.title
 
     def search_movie(self, actor, director, production_studio, language, genre):
-        result = set()
+        result = None
+        print(actor, director, production_studio, language, genre)
 
         if actor != "":
             _actor = Actor.objects.filter(name=actor).first()

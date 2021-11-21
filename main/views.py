@@ -1,14 +1,9 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseNotFound
-from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import *
-import json
-import pickle
-from .utils import *
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
+from .utils import *
 
 with open("ml_utils/recommendation/feature_default.json", "r") as f:
     defaults = json.load(f)
