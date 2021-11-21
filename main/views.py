@@ -93,6 +93,7 @@ def register(request):
         )
         authorized_user.save()
 
+        send_email(email, "Welcome to Recommendora!", f"Hey {username},\n\nThanks for joining us.\nYour account has been successfully created. You can now enjoy all our benefits like personalized recommendations, friends activity and many more... Log in to get started\n\nBest,\nTeam Recommendora")
         login(request, new_user)
         return redirect("app_home")
 

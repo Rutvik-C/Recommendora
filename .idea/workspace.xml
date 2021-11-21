@@ -21,8 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b39787e7-2e39-4078-8826-a4dd27ff555b" name="Default Changelist" comment="Home page rec done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/templates/main/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recommendora/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recommendora/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
