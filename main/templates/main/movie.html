@@ -25,11 +25,11 @@
 	<style>
 
 		.myImg2 {
-			float: left;
 			width:  100px;
 			height: 185px;
 			object-fit: cover;
 		}
+
 
 	</style>
 </head>
@@ -462,15 +462,17 @@
 					       	 			<div class="title-hd-sm">
 											<h4>Directors</h4>
 										</div>
+										
+										<!-- //== -->
 										{% for direct in movie.directors.all %}
-										<div class="cast-it">
-											<div class="cast-left">
-												<img src="{{ direct.image_url }}" class="myImg2">
-												<a>{{ direct.name }}</a>
-											</div>
+										<div class="movie-item-style-2">
+											<img src="{{ direct.image_url }}" class="myImg3">
+											<div class="mv-item-infor">
+												<h6><a>{{ direct.name }}</a></h6>
+												
+												</div>
 										</div>
 										{% endfor %}
-										<!-- //== -->
 
 										<div class="title-hd-sm">
 											<h4>Cast</h4>
@@ -733,8 +735,8 @@
 					       	 	</div>
 					       	 	<div id="moviesrelated" class="tab">
 					       	 		<div class="row">
-					       	 			<h3>Movies Similar To</h3>
-					       	 			<h2>{{ movie.title }}</h2>
+
+					       	 			<h2>Movies Similar To {{ movie.title }}</h2>
 <!--					       	 			<div class="topbar-filter">-->
 <!--											<p>Found <span>12 movies</span> in total</p>-->
 <!--											<label>Sort by:</label>-->
@@ -750,7 +752,7 @@
 
 										{% for movie in feature_movies %}
 										<div class="movie-item-style-2">
-											<img src="{{ movie.image_url }}" class="myImg2">
+											<img src="{{ movie.image_url }}">
 											<div class="mv-item-infor">
 												<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }} <span>({{ movie.year }})</span></a></h6>
 												<p class="rate"><i class="ion-android-star"></i><span>{{ movie.views }}</span> views</p>
