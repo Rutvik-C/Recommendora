@@ -1,24 +1,10 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseNotFound
-from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import *
-import json
-import pickle
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+
 from .utils import *
 
-with open("ml_utils/recommendation/feature_movie_rec.pkl", "rb") as f:
-    model_feature = pickle.load(f)
-with open("ml_utils/recommendation/actor_movie_rec.pkl", "rb") as f:
-    model_actor = pickle.load(f)
-with open("ml_utils/recommendation/director_movie_rec.pkl", "rb") as f:
-    model_director = pickle.load(f)
-with open("ml_utils/recommendation/studio_movie_rec.pkl", "rb") as f:
-    model_studio = pickle.load(f)
-with open("ml_utils/recommendation/feature_arrays.json", "r") as f:
-    data = json.load(f)
 with open("ml_utils/recommendation/feature_default.json", "r") as f:
     defaults = json.load(f)
 
@@ -38,28 +24,8 @@ def home_page(request):
 
     feature_rec, actor_rec, director_rec, studio_rec = [], [], [], []
     if request.user.is_authenticated:
-        user_preference = UserPreferences.objects.get(user=request.user)
-        feature_preference = json.loads(user_preference.feature_preference)
-        actor_preference = json.loads(user_preference.actor_preference)
-        director_preference = json.loads(user_preference.director_preference)
-        studio_preference = json.loads(user_preference.studio_preference)
-
-        y = data["title"]
-        dist, ind = model_feature.kneighbors([feature_preference], n_neighbors=8)
-        for i in ind[0]:
-            feature_rec.append(Movie.objects.filter(title=y[i]).first())
-
-        dist, ind = model_actor.kneighbors([actor_preference], n_neighbors=8)
-        for i in ind[0]:
-            actor_rec.append(Movie.objects.filter(title=y[i]).first())
-
-        dist, ind = model_director.kneighbors([director_preference], n_neighbors=8)
-        for i in ind[0]:
-            director_rec.append(Movie.objects.filter(title=y[i]).first())
-
-        dist, ind = model_studio.kneighbors([studio_preference], n_neighbors=8)
-        for i in ind[0]:
-            studio_rec.append(Movie.objects.filter(title=y[i]).first())
+        authorized_user = AuthorizedUser.objects.get(user=request.user)
+        feature_rec, actor_rec, director_rec, studio_rec = authorized_user.get_personalized_recommendations()
 
     context_dictionary = {
         "trending_movies": trending_movies,
@@ -113,15 +79,16 @@ def register(request):
         new_user = User.objects.create_user(username=username, email=email, password=password)
         new_user.save()
 
-        user_preference = UserPreferences(
+        authorized_user = AuthorizedUser(
             user=new_user,
             feature_preference=defaults["feature"],
             actor_preference=defaults["actor"],
             director_preference=defaults["director"],
             studio_preference=defaults["studio"]
         )
-        user_preference.save()
+        authorized_user.save()
 
+        send_email(email, "Welcome to Recommendora!", f"Hey {username},\n\nThanks for joining us.\nYour account has been successfully created. You can now enjoy all our benefits like personalized recommendations, friends activity and many more... Log in to get started\n\nBest,\nTeam Recommendora")
         login(request, new_user)
         return redirect("app_home")
 
@@ -148,48 +115,8 @@ def search_movie(request):
         else:
             genre = ""
 
-        print(actor, type(actor))
-        print(director, type(director))
-        print(production_studio, type(production_studio))
-        print(language, type(language))
-        print(genre, type(genre))
-
-        if actor != "":
-            _actor = Actor.objects.filter(name=actor).first()
-            result = set(_actor.movie_set.all())
-
-        if director != "":
-            _director = Director.objects.filter(name=director).first()
-            temp_dir = set(_director.movie_set.all())
-            if result is None:
-                result = temp_dir
-            else:
-                result = result.intersection(temp_dir)
-
-        if production_studio != "":
-            temp_studio = set(Movie.objects.filter(production_company__contains=production_studio))
-            if result is None:
-                result = temp_studio
-            else:
-                result = result.intersection(temp_studio)
-
-        if language != "":
-            temp_lang = set(Movie.objects.filter(language__contains=language))
-            if result is None:
-                result = temp_lang
-            else:
-                result = result.intersection(temp_lang)
-
-        if genre != "":
-            temp_genre = set()
-            for g in genre:
-                _genre = Genre.objects.filter(type=g).first()
-                temp_genre = temp_genre.union(set(_genre.movie_set.all()))
-
-            if result is None:
-                result = temp_genre
-            else:
-                result = result.intersection(temp_genre)
+        movie = Movie()
+        result = movie.search_movie(actor, director, production_studio, language, genre)
 
     if result is None:
         result = []
@@ -242,15 +169,22 @@ def movie_information(request):
             movie = Movie.objects.filter(id=movie_id)
             if len(movie) != 0:
                 movie = movie.first()
+
                 if "=" in movie.trailer_link:
                     trailer = movie.trailer_link.split("=")[1]
 
                 else:
                     trailer = "eSIJddEieLI"
 
+                feature_rec, actor_rec, director_rec, studio_rec = movie.get_movie_recommendation()
+
                 context_dict = {
                     "movie": movie,
-                    "trailer": trailer
+                    "trailer": trailer,
+                    "feature_movies": feature_rec,
+                    "actor_movies": actor_rec,
+                    "director_movies": director_rec,
+                    "studio_movies": studio_rec,
                 }
 
                 return render(request, "main/movie.html", context_dict)
