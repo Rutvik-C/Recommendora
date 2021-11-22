@@ -174,7 +174,7 @@
 <div class="movie-items">
 	<div class="container">
 		<div class="row ipad-width">
-			<div class="col-md-8">
+			<div class="col-md-12">
 				<div class="title-hd">
 					<h2>Based on your liked movies...</h2>
 				</div>
@@ -195,8 +195,8 @@
 					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
-					            				<p><i class="fas fa-eye"></i><span>  {{ movie.views }}</span></p>
+					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+					            				<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
 					            			</div>
 					            		</div>
 				            		</div>
@@ -228,8 +228,8 @@
 					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
-					            				<p><i class="ion-android-star"></i><span>  {{ movie.views }}</span></p>
+					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+					            				<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
 					            			</div>
 					            		</div>
 				            		</div>
@@ -261,8 +261,8 @@
 					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
-					            				<p><i class="ion-android-star"></i><span>  {{ movie.views }}</span></p>
+					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+					            				<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
 					            			</div>
 					            		</div>
 				            		</div>
@@ -294,8 +294,8 @@
 					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
-					            				<p><i class="ion-android-star"></i><span>  {{ movie.views }}</span></p>
+					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+					            				<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
 					            			</div>
 					            		</div>
 				            		</div>
@@ -305,44 +305,6 @@
 				            </div>
 				        </div>
 				    </div>
-				</div>
-
-			</div>
-			
-			<div class="col-md-4">
-				<div class="sidebar">
-					<div class="celebrities">
-						<h4 class="sb-title">Spotlight Celebrities</h4>
-						<div class="celeb-item">
-							<a href="#"><img src="images/uploads/ava1.jpg" alt="" width="70" height="70"></a>
-							<div class="celeb-author">
-								<h6><a href="#">Samuel N. Jack</a></h6>
-								<span>Actor</span>
-							</div>
-						</div>
-						<div class="celeb-item">
-							<a href="#"><img src="images/uploads/ava2.jpg" alt="" width="70" height="70"></a>
-							<div class="celeb-author">
-								<h6><a href="#">Benjamin Carroll</a></h6>
-								<span>Actor</span>
-							</div>
-						</div>
-						<div class="celeb-item">
-							<a href="#"><img src="images/uploads/ava3.jpg" alt="" width="70" height="70"></a>
-							<div class="celeb-author">
-								<h6><a href="#">Beverly Griffin</a></h6>
-								<span>Actor</span>
-							</div>
-						</div>
-						<div class="celeb-item">
-							<a href="#"><img src="images/uploads/ava4.jpg" alt="" width="70" height="70"></a>
-							<div class="celeb-author">
-								<h6><a href="#">Justin Weaver</a></h6>
-								<span>Actor</span>
-							</div>
-						</div>
-						<a href="#" class="btn">See all celebrities<i class="ion-ios-arrow-right"></i></a>
-					</div>
 				</div>
 			</div>
 		</div>
