@@ -27,6 +27,14 @@
     height: 400px;
     object-fit: cover;
 }
+
+.myImg2 {
+    float: left;
+    width:  185px;
+    height: 285px;
+    object-fit: cover;
+}
+
 		/*the container must be positioned relative:*/
 		.autocomplete {
 		  position: relative;
@@ -157,7 +165,7 @@
 						{% for movie in search_movies %}
 
 						<div class="movie-item-style-2 movie-item-style-1">
-							<img src="{{ movie.image_url }}" alt="">
+							<img src="{{ movie.image_url }}" class="myImg2">
 							<div class="hvr-inner">
 	            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 	            			</div>
