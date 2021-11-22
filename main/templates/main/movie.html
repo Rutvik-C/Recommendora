@@ -22,7 +22,16 @@
 	<!-- CSS files -->
 	<link rel="stylesheet" href="{% static 'main/css/plugins.css' %}">
 	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+	<style>
 
+		.myImg2 {
+			float: left;
+			width:  100px;
+			height: 185px;
+			object-fit: cover;
+		}
+
+	</style>
 </head>
 <body>
 
@@ -150,7 +159,6 @@
 								<li class="active"><a href="#overview">Overview</a></li>
 								<li><a href="#reviews"> Reviews</a></li>
 								<li><a href="#cast">  Cast & Crew </a></li>
-								<li><a href="#media"> Media</a></li> 
 								<li><a href="#moviesrelated"> Related Movies</a></li>                        
 							</ul>
 						    <div class="tab-content">
@@ -457,7 +465,7 @@
 										{% for direct in movie.directors.all %}
 										<div class="cast-it">
 											<div class="cast-left">
-												<img src="{{ direct.image_url }}" alt="">
+												<img src="{{ direct.image_url }}" class="myImg2">
 												<a>{{ direct.name }}</a>
 											</div>
 										</div>
@@ -470,7 +478,7 @@
 										{% for act in movie.actors.all %}
 										<div class="cast-it">
 											<div class="cast-left">
-												<img src="{{ act.image_url }}" alt="">
+												<img src="{{ act.image_url }}" class="myImg2">
 												<a>{{ act.name }}</a>
 											</div>
 										</div>
@@ -742,7 +750,7 @@
 
 										{% for movie in feature_movies %}
 										<div class="movie-item-style-2">
-											<img src="{{ movie.image_url }}" alt="">
+											<img src="{{ movie.image_url }}" class="myImg2">
 											<div class="mv-item-infor">
 												<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }} <span>({{ movie.year }})</span></a></h6>
 												<p class="rate"><i class="ion-android-star"></i><span>{{ movie.views }}</span> views</p>
@@ -825,7 +833,22 @@
 	</div>
 </div>
 
-
+{% for movie in feature_movies %}
+				            		<div class="slide-it">
+				            			<div class="movie-item">
+					            			<div class="mv-img">
+					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
+					            			</div>
+					            			<div class="hvr-inner">
+					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            			</div>
+					            			<div class="title-in">
+					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
+					            				<p><i class="fas fa-eye"></i><span>  {{ movie.views }}</span></p>
+					            			</div>
+					            		</div>
+				            		</div>
+									{% endfor %}
 
 <!-- footer section-->
 <footer class="ht-footer">
