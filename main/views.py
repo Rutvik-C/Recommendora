@@ -39,7 +39,6 @@ def home_page(request):
     feature_rec, actor_rec, director_rec, studio_rec = [], [], [], []
     if request.user.is_authenticated:
         user_preference = UserPreferences.objects.get(user=request.user)
-
         feature_preference = json.loads(user_preference.feature_preference)
         actor_preference = json.loads(user_preference.actor_preference)
         director_preference = json.loads(user_preference.director_preference)
@@ -149,11 +148,11 @@ def search_movie(request):
         else:
             genre = ""
 
-        # print(actor, type(actor))
-        # print(director, type(director))
-        # print(production_studio, type(production_studio))
-        # print(language, type(language))
-        # print(genre, type(genre))
+        print(actor, type(actor))
+        print(director, type(director))
+        print(production_studio, type(production_studio))
+        print(language, type(language))
+        print(genre, type(genre))
 
         if actor != "":
             _actor = Actor.objects.filter(name=actor).first()
