@@ -1,476 +1,291 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-{% load static %}
-
-<head>
-	<!-- Basic need -->
-	<title>Recommendora</title>
-	<meta charset="UTF-8">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-	<meta name="author" content="">
-	<link rel="profile" href="#">
-
-    <!--Google Font-->
-    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
-	<!-- Mobile specific meta -->
-	<meta name=viewport content="width=device-width, initial-scale=1">
-	<meta name="format-detection" content="telephone-no">
-
-	<!-- CSS files -->
-	<link rel="stylesheet" href="{% static 'main/css/plugins.css' %}">
-	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
-	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.0/font/bootstrap-icons.min.css" integrity="sha512-yLNTU6YQWEtsM/WVkUqd2jRzzq5hmfFUMVvziVlkgC0R9HTElDtyF4DiWiBeMS36npvN+NWwrr764A4AWGcmQQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<style>
-				.myImg {
-    float: left;
-    width:  285px;
-    height: 400px;
-    object-fit: cover;
-}
-
-		.myImg2 {
-    float: left;
-    width:  185px;
-    height: 285px;
-    object-fit: cover;
-}
-
-		/*the container must be positioned relative:*/
-		.autocomplete {
-		  position: relative;
-		  display: inline-block;
-		}
-		
-		
-		.autocomplete-items {
-		  position: absolute;
-		  border-top: none;
-		  border: 5px solid #020d18; 
-		  z-index: 99;
-		  /*position the autocomplete items to be the same width as the container:*/
-		  top: 100%;
-		  left: 0;
-		  right: 0;
-		  margin-right:10px;
-		  margin-left:12px;
-		  border-radius:5px;
-		}
-		
-		.autocomplete-items div {
-		  padding: 10px;
-		  cursor: pointer;
-		  background-color: #fff; 
-		  
-		}
-		
-		/*when hovering an item:*/
-		.autocomplete-items div:hover {
-		  background-color: #e9e9e9; 
-		}
-		
-		/*when navigating through the items using the arrow keys:*/
-		.autocomplete-active {
-		  background-color: #233a50 !important; 
-		  color: #ffffff; 
-		}
-		a:hover {
-color: yellow;
-}
+	{% load static %}
+	<head>
+		<title>Recommendora</title>
+		<meta charset="UTF-8">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		<link rel="profile" href="#">
+		<!--Google Font-->
+		<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+		<!-- Mobile specific meta -->
+		<meta name=viewport content="width=device-width, initial-scale=1">
+		<meta name="format-detection" content="telephone-no">
+		<!-- CSS files -->
+		<link rel="stylesheet" href="{% static 'main/css/plugins.css' %}">
+		<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+		<!--Icon links-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.0/font/bootstrap-icons.min.css" integrity="sha512-yLNTU6YQWEtsM/WVkUqd2jRzzq5hmfFUMVvziVlkgC0R9HTElDtyF4DiWiBeMS36npvN+NWwrr764A4AWGcmQQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style>
+			.myImg {
+				float: left;
+				width:  285px;
+				height: 400px;
+				object-fit: cover;
+			}
+			.myImg2 {
+				float: left;
+				width:  185px;
+				height: 285px;
+				object-fit: cover;
+			}
+			a:hover {
+				color: yellow;
+			}
 		</style>
+	</head>
 
-</head>
-<body>
-
-
-<!-- BEGIN | Header -->
-<header class="ht-header">
-	<div class="container">
-		<nav class="navbar navbar-default navbar-custom">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header logo">
-				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					    <span class="sr-only">Toggle navigation</span>
-					    <div id="nav-icon1">
-							<span></span>
-							<span></span>
-							<span></span>
-						</div>
-				    </div>
-				    <a href="{% url 'app_home' %}"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt="" width="119" height="58"></a>
-			    </div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav flex-child-menu menu-left">
-						<li class="hidden">
-							<a href="#page-top"></a>
-						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1">Home</a>
-						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'search_movie' %}">Search movies</a>
-						</li>
-						
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1">Friends</a>
-						</li>
-						
-					</ul>
-					<ul class="nav navbar-nav flex-child-menu menu-right">
-						<li class="dropdown first">
-						{% if user.is_authenticated %}
-							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Hello, {{ user.username }}</a>
-						</li>
-
-						<li class="btn"><a href="{% url 'logout' %}">Log Out</a></li>
-						{% else %}
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Profile</a>
-						</li>
-						<li class=""><a href="{% url 'login' %}">Log In</a></li>
-						<li class="btn"><a href="{% url 'register' %}">Register</a></li>
-						{% endif %}
-					</ul>
-				</div>
-			<!-- /.navbar-collapse -->
-	    </nav>
-	</div>
-</header>
-<!-- END | Header -->
-
-<div class="slider movie-items">
-	<div class="container">
-		<div class="row">
-
-	    	<div  class="slick-multiItemSlider">
-
-				{% for movie in trending_movies %}
-
-					<div class="movie-item">
-						<div class="mv-img">
-							<a href="{% url 'movie_info' %}?id={{ movie.id }}"><img class="myImg" src="{{ movie.image_url }}" alt=""></a>
-						</div>
-						<div class="title-in">
-							<div class="cate">
-								{% for gen in movie.genre.all %}
-								<span class="blue"><a>{{ gen.type }}</a></span>
-								{% endfor %}
+	<body>
+	<!-- BEGIN | Header -->
+	<header class="ht-header">
+		<div class="container">
+			<nav class="navbar navbar-default navbar-custom">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header logo">
+						<div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<div id="nav-icon1">
+								<span></span>
+								<span></span>
+								<span></span>
 							</div>
-							<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}" style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
-							<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a">  {{ movie.views }}</span></p>
+						</div>
+						<a href="{% url 'app_home' %}"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt="" width="119" height="58"></a>
+					</div>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav flex-child-menu menu-left">
+							<li class="hidden">
+								<a href="#page-top"></a>
+							</li>
+							<li class="dropdown first">
+								<a class="btn btn-default dropdown-toggle lv1">Home</a>
+							</li>
+							<li class="dropdown first">
+								<a class="btn btn-default dropdown-toggle lv1" href="{% url 'search_movie' %}">Search movies</a>
+							</li>
+							
+							<li class="dropdown first">
+								<a class="btn btn-default dropdown-toggle lv1">Friends</a>
+							</li>
+							
+						</ul>
+						<ul class="nav navbar-nav flex-child-menu menu-right">
+							<li class="dropdown first">
+							{% if user.is_authenticated %}
+								<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Hello, {{ user.username }}</a>
+							</li>
+
+							<li class="btn"><a href="{% url 'logout' %}">Log Out</a></li>
+							{% else %}
+							<li class="dropdown first">
+								<a class="btn btn-default dropdown-toggle lv1" href="{% url 'user_profile' %}">Profile</a>
+							</li>
+							<li class=""><a href="{% url 'login' %}">Log In</a></li>
+							<li class="btn"><a href="{% url 'register' %}">Register</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				<!-- /.navbar-collapse -->
+			</nav>
+		</div>
+	</header>
+	<!-- END | Header -->
+
+	<div class="slider movie-items">
+		<div class="container">
+			<div class="row">
+				<div  class="slick-multiItemSlider">
+					{% for movie in trending_movies %}
+						<div class="movie-item">
+							<div class="mv-img">
+								<a href="{% url 'movie_info' %}?id={{ movie.id }}"><img class="myImg" src="{{ movie.image_url }}" alt=""></a>
+							</div>
+							<div class="title-in">
+								<div class="cate">
+									{% for gen in movie.genre.all %}
+									<span class="blue"><a>{{ gen.type }}</a></span>
+									{% endfor %}
+								</div>
+								<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}" style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+								<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a">  {{ movie.views }}</span></p>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="movie-items">
+		<div class="container">
+			<div class="row ipad-width">
+				{% if user.is_authenticated %}
+				<div class="col-md-12">
+					<div class="title-hd">
+						<h2>Based on your liked movies...</h2>
+					</div>
+					<div class="tabs">
+						<div class="tab-content">
+							<div class="tab active">
+								<div class="row">
+									<div class="slick-multiItem">
+										{% for movie in feature_movies %}
+										<div class="slide-it">
+											<div class="movie-item">
+												<div class="mv-img">
+													<img class="myImg2" src="{{ movie.image_url }}" alt="">
+												</div>
+												<div class="hvr-inner">
+													<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+												</div>
+												<div class="title-in">
+													<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+													<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-
-				{% endfor %}
-
-	    	</div>
-	    </div>
-	</div>
-</div>
-<div class="movie-items">
-	<div class="container">
-		<div class="row ipad-width">
-
-			{% if user.is_authenticated %}
-			<div class="col-md-12">
-				<div class="title-hd">
-					<h2>Based on your liked movies...</h2>
+					<div class="title-hd">
+						<h2>Based on actors you love...</h2>
+					</div>
+					<div class="tabs">
+						<div class="tab-content">
+							<div class="tab active">
+								<div class="row">
+									<div class="slick-multiItem">
+										{% for movie in actor_movies %}
+										<div class="slide-it">
+											<div class="movie-item">
+												<div class="mv-img">
+													<img class="myImg2" src="{{ movie.image_url }}" alt="">
+												</div>
+												<div class="hvr-inner">
+													<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+												</div>
+												<div class="title-in">
+													<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+													<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="title-hd">
+						<h2>Based on your favourite directors...</h2>
+					</div>
+					<div class="tabs">
+						<div class="tab-content">
+							<div class="tab active">
+								<div class="row">
+									<div class="slick-multiItem">
+										{% for movie in director_movies %}
+										<div class="slide-it">
+											<div class="movie-item">
+												<div class="mv-img">
+													<img class="myImg2" src="{{ movie.image_url }}" alt="">
+												</div>
+												<div class="hvr-inner">
+													<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+												</div>
+												<div class="title-in">
+													<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+													<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="title-hd">
+						<h2>From you favourite studios...</h2>
+					</div>
+					<div class="tabs">
+						<div class="tab-content">
+							<div id="tab1" class="tab active">
+								<div class="row">
+									<div class="slick-multiItem">
+										{% for movie in studio_movies %}
+										<div class="slide-it">
+											<div class="movie-item">
+												<div class="mv-img">
+													<img class="myImg2" src="{{ movie.image_url }}" alt="">
+												</div>
+												<div class="hvr-inner">
+													<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+												</div>
+												<div class="title-in">
+													<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
+													<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-
-				<div class="tabs">
-				    <div class="tab-content">
-				        <div class="tab active">
-				            <div class="row">
-				            	<div class="slick-multiItem">
-
-									{% for movie in feature_movies %}
-				            		<div class="slide-it">
-				            			<div class="movie-item">
-					            			<div class="mv-img">
-					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
-					            			</div>
-					            			<div class="hvr-inner">
-					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-					            			</div>
-					            			<div class="title-in">
-					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
-					            				<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
-					            			</div>
-					            		</div>
-				            		</div>
-									{% endfor %}
-
-				            	</div>
-				            </div>
-				        </div>
-				    </div>
+				{% else %}
+				<div class="col-md-12">
+					<div class="title-hd">
+						<h2><a href="{% url 'login'%}">Login</a> / <a href="{% url 'register'%}">Register</a> to view recommendations</h2>
+					</div>
 				</div>
-
-				<div class="title-hd">
-					<h2>Based on actors you love...</h2>
-				</div>
-
-				<div class="tabs">
-				    <div class="tab-content">
-				        <div class="tab active">
-				            <div class="row">
-				            	<div class="slick-multiItem">
-
-									{% for movie in actor_movies %}
-				            		<div class="slide-it">
-				            			<div class="movie-item">
-					            			<div class="mv-img">
-					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
-					            			</div>
-					            			<div class="hvr-inner">
-					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-					            			</div>
-					            			<div class="title-in">
-					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
-					            				<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
-					            			</div>
-					            		</div>
-				            		</div>
-									{% endfor %}
-
-				            	</div>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-
-				<div class="title-hd">
-					<h2>Based on your favourite directors...</h2>
-				</div>
-
-				<div class="tabs">
-				    <div class="tab-content">
-				        <div class="tab active">
-				            <div class="row">
-				            	<div class="slick-multiItem">
-
-									{% for movie in director_movies %}
-				            		<div class="slide-it">
-				            			<div class="movie-item">
-					            			<div class="mv-img">
-					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
-					            			</div>
-					            			<div class="hvr-inner">
-					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-					            			</div>
-					            			<div class="title-in">
-					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
-					            				<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
-					            			</div>
-					            		</div>
-				            		</div>
-									{% endfor %}
-
-				            	</div>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-
-				<div class="title-hd">
-					<h2>From you favourite studios...</h2>
-				</div>
-
-				<div class="tabs">
-				    <div class="tab-content">
-				        <div id="tab1" class="tab active">
-				            <div class="row">
-				            	<div class="slick-multiItem">
-
-									{% for movie in studio_movies %}
-				            		<div class="slide-it">
-				            			<div class="movie-item">
-					            			<div class="mv-img">
-					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
-					            			</div>
-					            			<div class="hvr-inner">
-					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-					            			</div>
-					            			<div class="title-in">
-					            				<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}"  style="background-color: #020d18; color: #f5b50a">{{ movie.title }}</a></h6>
-					            				<p style="background-color: #020d18; padding-top: 7px;"><i class="bi bi-eye"></i><span style="color: #f5b50a"> {{ movie.views }}</span></p>
-					            			</div>
-					            		</div>
-				            		</div>
-									{% endfor %}
-
-				            	</div>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-			</div>
-
-			{% else %}
-
-			<div class="col-md-12">
-				<div class="title-hd">
-					<h2><a href="{% url 'login'%}">Login</a> / <a href="{% url 'register'%}">Register</a> to view recommendations</h2>
-				</div>
-			</div>
-
-			{% endif %}
-
-		</div>
-	</div>
-</div>
-
-
-
-<!-- footer section-->
-<footer class="ht-footer">
-	<div class="container">
-		<div class="flex-parent-ft">
-			<div class="flex-child-ft item1">
-				 <a href="{% url 'app_home' %}"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt=""></a>
-				<p>Reach out at help@recommendora.com</p>
-			</div>
-			<div class="flex-child-ft item2">
-				<h4>Menu</h4>
-				<ul>
-					<li><a href="{% url 'app_home' %}">Home</a></li>
-					<li><a href="{% url 'search_movie' %}">Search Movie</a></li>
-					<li><a>Friends</a></li>
-				</ul>
-			</div>
-
-			<div class="flex-child-ft item4">
-				<h4>Follow us</h4>
-				<div class="social-link">
-					<a href="#"><i class="ion-social-facebook"></i></a>
-					<a href="#"><i class="ion-social-twitter"></i></a>
-				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
-	<div class="ft-copyright">
-		<div class="backtotop" >
-			<p style="text-align: right;"><a href="#" id="back-to-top">Back to top  <i class="ion-ios-arrow-thin-up"></i></a></p>
+	<!-- footer section-->
+	<footer class="ht-footer">
+		<div class="container">
+			<div class="flex-parent-ft">
+				<div class="flex-child-ft item1">
+					<a href="{% url 'app_home' %}"><img class="logo" src="{% static 'main/images/logo1.png' %}" alt=""></a>
+					<p>Reach out at help@recommendora.com</p>
+				</div>
+				<div class="flex-child-ft item2">
+					<h4>Menu</h4>
+					<ul>
+						<li><a href="{% url 'app_home' %}">Home</a></li>
+						<li><a href="{% url 'search_movie' %}">Search Movie</a></li>
+						<li><a>Friends</a></li>
+					</ul>
+				</div>
+				<div class="flex-child-ft item4">
+					<h4>Follow us</h4>
+					<div class="social-link">
+						<a href="#"><i class="ion-social-facebook"></i></a>
+						<a href="#"><i class="ion-social-twitter"></i></a>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-</footer>
-<!-- end of footer section-->
-
-<script>
-	function autocomplete(inp, arr) {
-	  /*the autocomplete function takes two arguments,
-	  the text field element and an array of possible autocompleted values:*/
-	  var currentFocus;
-	  /*execute a function when someone writes in the text field:*/
-	  inp.addEventListener("input", function(e) {
-		  var a, b, i, val = this.value;
-		  /*close any already open lists of autocompleted values*/
-		  closeAllLists();
-		  if (!val) { return false;}
-		  currentFocus = -1;
-		  /*create a DIV element that will contain the items (values):*/
-		  a = document.createElement("DIV");
-		  a.setAttribute("id", this.id + "autocomplete-list");
-		  a.setAttribute("class", "autocomplete-items");
-		  /*append the DIV element as a child of the autocomplete container:*/
-		  this.parentNode.appendChild(a);
-		  /*for each item in the array...*/
-		  for (i = 0; i < arr.length; i++) {
-			/*check if the item starts with the same letters as the text field value:*/
-			if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-			  /*create a DIV element for each matching element:*/
-			  b = document.createElement("DIV");
-			  /*make the matching letters bold:*/
-			  b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-			  b.innerHTML += arr[i].substr(val.length);
-			  /*insert a input field that will hold the current array item's value:*/
-			  b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-			  /*execute a function when someone clicks on the item value (DIV element):*/
-			  b.addEventListener("click", function(e) {
-				  /*insert the value for the autocomplete text field:*/
-				  inp.value = this.getElementsByTagName("input")[0].value;
-				  /*close the list of autocompleted values,
-				  (or any other open lists of autocompleted values:*/
-				  closeAllLists();
-			  });
-			  a.appendChild(b);
-			}
-		  }
-	  });
-	  /*execute a function presses a key on the keyboard:*/
-	  inp.addEventListener("keydown", function(e) {
-		  var x = document.getElementById(this.id + "autocomplete-list");
-		  if (x) x = x.getElementsByTagName("div");
-		  if (e.keyCode == 40) {
-			/*If the arrow DOWN key is pressed,
-			increase the currentFocus variable:*/
-			currentFocus++;
-			/*and and make the current item more visible:*/
-			addActive(x);
-		  } else if (e.keyCode == 38) { //up
-			/*If the arrow UP key is pressed,
-			decrease the currentFocus variable:*/
-			currentFocus--;
-			/*and and make the current item more visible:*/
-			addActive(x);
-		  } else if (e.keyCode == 13) {
-			/*If the ENTER key is pressed, prevent the form from being submitted,*/
-			e.preventDefault();
-			if (currentFocus > -1) {
-			  /*and simulate a click on the "active" item:*/
-			  if (x) x[currentFocus].click();
-			}
-		  }
-	  });
-	  function addActive(x) {
-		/*a function to classify an item as "active":*/
-		if (!x) return false;
-		/*start by removing the "active" class on all items:*/
-		removeActive(x);
-		if (currentFocus >= x.length) currentFocus = 0;
-		if (currentFocus < 0) currentFocus = (x.length - 1);
-		/*add class "autocomplete-active":*/
-		x[currentFocus].classList.add("autocomplete-active");
-	  }
-	  function removeActive(x) {
-		/*a function to remove the "active" class from all autocomplete items:*/
-		for (var i = 0; i < x.length; i++) {
-		  x[i].classList.remove("autocomplete-active");
-		}
-	  }
-	  function closeAllLists(elmnt) {
-		/*close all autocomplete lists in the document,
-		except the one passed as an argument:*/
-		var x = document.getElementsByClassName("autocomplete-items");
-		for (var i = 0; i < x.length; i++) {
-		  if (elmnt != x[i] && elmnt != inp) {
-			x[i].parentNode.removeChild(x[i]);
-		  }
-		}
-	  }
-	  /*execute a function when someone clicks in the document:*/
-	  document.addEventListener("click", function (e) {
-		  closeAllLists(e.target);
-	  });
-	}
-
-	/*An array containing all the country names in the world:*/
-	var movies = {{ all_movies | safe }}
-
-	/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-	autocomplete(document.getElementById("myInput"), movies);
-	</script>
-
-<script src="{% static 'main/js/jquery.js' %}"></script>
-<script src="{% static 'main/js/plugins.js' %}"></script>
-<script src="{% static 'main/js/plugins2.js' %}"></script>
-<script src="{% static 'main/js/custom.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-</body>
-
-
+		<div class="ft-copyright">
+			<div class="backtotop" >
+				<p style="text-align: right;"><a href="#" id="back-to-top">Back to top  <i class="ion-ios-arrow-thin-up"></i></a></p>
+			</div>
+		</div>
+	</footer>
+	<!-- end of footer section-->
+	<script src="{% static 'main/js/jquery.js' %}"></script>
+	<script src="{% static 'main/js/plugins.js' %}"></script>
+	<script src="{% static 'main/js/plugins2.js' %}"></script>
+	<script src="{% static 'main/js/custom.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
 </html>
