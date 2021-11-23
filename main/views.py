@@ -1,13 +1,8 @@
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
 
 from .models import *
 from .utils import *
-
-with open("ml_utils/recommendation/feature_default.json", "r") as f:
-    defaults = json.load(f)
 
 
 _movie = Movie()
@@ -48,15 +43,8 @@ def user_login(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect("app_home")
-
-        else:
-            messages.success(request, "Invalid credentials")
-            return redirect("login")
+        anonymous_user = AnonymousUser()
+        return anonymous_user.login(request, username, password)
 
     else:
         return render(request, "main/login.html")
@@ -81,21 +69,8 @@ def register(request):
             messages.error(request, "E-Mail taken")
             return redirect("register")
 
-        new_user = User.objects.create_user(username=username, email=email, password=password)
-        new_user.save()
-
-        authorized_user = AuthorizedUser(
-            user=new_user,
-            feature_preference=defaults["feature"],
-            actor_preference=defaults["actor"],
-            director_preference=defaults["director"],
-            studio_preference=defaults["studio"]
-        )
-        authorized_user.save()
-
-        send_email(email, "Welcome to Recommendora!", f"Hey {username},\n\nThanks for joining us.\nYour account has been successfully created. You can now enjoy all our benefits like personalized recommendations, friends activity and many more... Log in to get started\n\nBest,\nTeam Recommendora")
-        login(request, new_user)
-        return redirect("app_home")
+        anonymous_user = AnonymousUser()
+        return anonymous_user.register(request, username, email, password)
 
     else:
         return render(request, "main/register.html")
@@ -111,6 +86,7 @@ def search_movie(request):
 
     if request.method == "POST":
         d = dict(request.POST)
+        movie_name = d["movie"][0]
         actor = d["actor"][0]
         director = d["director"][0]
         production_studio = d["studio"][0]
@@ -121,7 +97,7 @@ def search_movie(request):
             genre = ""
 
         movie = Movie()
-        result = movie.search_movie(actor, director, production_studio, language, genre)
+        result = movie.search_movie(movie_name, actor, director, production_studio, language, genre)
 
     if result is None:
         result = []

@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.shortcuts import redirect
 import json
 import pickle
 from scipy import sparse
-
+from .utils import *
 
 with open("ml_utils/recommendation/feature_movie_rec.pkl", "rb") as f:
     model_feature = pickle.load(f)
@@ -15,6 +18,8 @@ with open("ml_utils/recommendation/studio_movie_rec.pkl", "rb") as f:
     model_studio = pickle.load(f)
 with open("ml_utils/recommendation/feature_arrays.json", "r") as f:
     data = json.load(f)
+with open("ml_utils/recommendation/feature_default.json", "r") as f:
+    defaults = json.load(f)
 X_feature_vectors = sparse.load_npz("ml_utils/recommendation/feature_vectors.npz")
 X_actor_vectors = sparse.load_npz("ml_utils/recommendation/actor_vectors.npz")
 X_director_vectors = sparse.load_npz("ml_utils/recommendation/director_vectors.npz")
@@ -86,13 +91,21 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
-    def search_movie(self, actor, director, production_studio, language, genre):
+    def search_movie(self, movie_name, actor, director, production_studio, language, genre):
         result = None
         print(actor, director, production_studio, language, genre)
 
+        if movie_name != "":
+            _movie = Movie.objects.filter(title=movie_name).first()
+            result = {_movie}
+
         if actor != "":
             _actor = Actor.objects.filter(name=actor).first()
-            result = set(_actor.movie_set.all())
+            temp_dir = set(_actor.movie_set.all())
+            if result is None:
+                result = temp_dir
+            else:
+                result = result.intersection(temp_dir)
 
         if director != "":
             _director = Director.objects.filter(name=director).first()
@@ -199,3 +212,36 @@ class AuthorizedUser(models.Model):
             studio_rec.append(Movie.objects.filter(title=y[i]).first())
 
         return feature_rec, actor_rec, director_rec, studio_rec
+
+
+class AnonymousUser:
+    def register(self, request, username, email, password):
+        new_user = User.objects.create_user(username=username, email=email, password=password)
+        new_user.save()
+
+        authorized_user = AuthorizedUser(
+            user=new_user,
+            feature_preference=defaults["feature"],
+            actor_preference=defaults["actor"],
+            director_preference=defaults["director"],
+            studio_preference=defaults["studio"]
+        )
+        authorized_user.save()
+
+        send_email(email, "Welcome to Recommendora!",
+                   f"Hey {username},\n\nThanks for joining us.\nYour account has been successfully created. You can now enjoy all our benefits like personalized recommendations, friends activity and many more... Log in to get started\n\nBest,\nTeam Recommendora")
+        login(request, new_user)
+
+        return redirect("app_home")
+
+    def login(self, request, username, password):
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("app_home")
+
+        else:
+            messages.success(request, "Invalid credentials")
+            return redirect("login")
+

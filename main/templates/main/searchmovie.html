@@ -189,7 +189,7 @@ color: yellow;
 							<div class="row">
 							<div class="col-md-12 form-it autocomplete">
 									<label>Movie name</label>
-									<input id="myMovie" name="actor" type="text" placeholder="Enter keywords">
+									<input id="myMovie" name="movie" type="text" placeholder="Enter keywords">
 								</div>
 								<div class="col-md-12 form-it autocomplete">
 									<label>Actor name</label>
@@ -253,9 +253,9 @@ color: yellow;
 			<div class="flex-child-ft item2">
 				<h4>Menu</h4>
 				<ul>
-					<li><a href="#">Home</a></li> 
-					<li><a href="#">Search Movie</a></li>
-					<li><a href="#">Friends</a></li>
+					<li><a href="{% url 'app_home' %}">Home</a></li>
+					<li><a href="{% url 'search_movie' %}">Search Movie</a></li>
+					<li><a>Friends</a></li>
 				</ul>
 			</div>
 			
