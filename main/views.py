@@ -175,6 +175,8 @@ def movie_information(request):
             movie = Movie.objects.filter(id=movie_id)
             if len(movie) != 0:
                 movie = movie.first()
+                movie.views += 1
+                movie.save()
 
                 if "=" in movie.trailer_link:
                     trailer = movie.trailer_link.split("=")[1]
