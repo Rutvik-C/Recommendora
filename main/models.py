@@ -28,6 +28,14 @@ class Actor(models.Model):
     def __str__(self):
         return self.name
 
+    def get_actors(self):
+        result = []
+
+        for actor in Actor.objects.all():
+            result.append(actor.name)
+
+        return result
+
 
 class Director(models.Model):
     name = models.CharField(max_length=50)
@@ -36,12 +44,28 @@ class Director(models.Model):
     def __str__(self):
         return self.name
 
+    def get_directors(self):
+        result = []
+
+        for director in Director.objects.all():
+            result.append(director.name)
+
+        return result
+
 
 class Genre(models.Model):
     type = models.CharField(max_length=50)
 
     def __str__(self):
         return self.type
+
+    def get_genres(self):
+        result = []
+
+        for genre in Genre.objects.all():
+            result.append(genre.type)
+
+        return result
 
 
 class Movie(models.Model):
@@ -126,6 +150,25 @@ class Movie(models.Model):
             studio_rec.append(Movie.objects.filter(title=y[i]).first())
 
         return feature_rec, actor_rec, director_rec, studio_rec
+
+    def get_movies(self):
+        result_movie = []
+        result_language = set()
+        result_studio = set()
+
+        for movie in Movie.objects.all():
+            result_movie.append(movie.title)
+            for lang in movie.language.split(","):
+                result_language.add(lang.strip())
+            for studio in movie.production_company.split(","):
+                result_studio.add(studio.strip())
+
+        result_language = list(result_language)
+        result_language.sort()
+        result_studio = list(result_studio)
+        result_studio.sort()
+
+        return result_movie, result_language, result_studio
 
 
 class AuthorizedUser(models.Model):

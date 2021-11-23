@@ -3,20 +3,25 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
+from .models import *
 from .utils import *
 
 with open("ml_utils/recommendation/feature_default.json", "r") as f:
     defaults = json.load(f)
 
+
+_movie = Movie()
+_actor = Actor()
+_director = Director()
 print("[+] Fetching movie info")
-movie_names, languages, studio = get_all_movie_info()
+movie_names, languages, studio = _movie.get_movies()
 all_movies = json.dumps(movie_names)
 all_languages = json.dumps(languages)
 all_studios = json.dumps(studio)
 print("[+] Fetching actor info")
-all_actors = json.dumps(get_all_actor())
+all_actors = json.dumps(_actor.get_actors())
 print("[+] Fetching director info")
-all_directors = json.dumps(get_all_director())
+all_directors = json.dumps(_director.get_directors())
 
 
 def home_page(request):
@@ -121,13 +126,14 @@ def search_movie(request):
     if result is None:
         result = []
 
+    _genre = Genre()
     context_dictionary = {
         "all_actors": all_actors,
         "all_directors": all_directors,
         "all_languages": all_languages,
         "all_studios": all_studios,
         "all_movies": all_movies,
-        "all_genre": get_all_genre(),
+        "all_genre": _genre.get_genres(),
         "search_movies": list(result)
     }
 
