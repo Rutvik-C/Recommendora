@@ -2,10 +2,7 @@
 {% load static %}
 
 <html lang="en" class="no-js">
-
-<!-- moviesingle07:38-->
 <head>
-	<!-- Basic need -->
 	<title>{{ movie.title }}</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="">
@@ -96,15 +93,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<!-- <h1> movie listing - list</h1>
-				<ul class="breadcumb">
-					<li class="active"><a href="#">Home</a></li>
-					<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
-				</ul> -->
 			</div>
 		</div>
 	</div>
 </div>
+
 <div class="page-single movie-single movie_single">
 	<div class="container">
 		<div class="row ipad-width2">
@@ -116,10 +109,6 @@
 							<div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
 							<div><a href="https://www.youtube.com/embed/{{ trailer }}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
 						</div>
-<!--						<div class="btn-transform transform-vertical">-->
-<!--							<div><a href="#" class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</a></div>-->
-<!--							<div><a href="#" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div>-->
-<!--						</div>-->
 					</div>
 				</div>
 			</div>
@@ -196,76 +185,7 @@
 													<a>{{ movie.production_company }}</a>
 												</p>
 											</div>
-
-<!--											<div class="title-hd-sm">-->
-<!--												<h4>User reviews</h4>-->
-<!--												<a href="#" class="time">See All 56 Reviews <i class="ion-ios-arrow-right"></i></a>-->
-<!--											</div>-->
-<!--											&lt;!&ndash; movie user review &ndash;&gt;-->
-<!--											<div class="mv-user-review-item">-->
-<!--												<h3>Best Marvel movie in my opinion</h3>-->
-<!--												<div class="no-star">-->
-<!--													<i class="ion-android-star"></i>-->
-<!--													<i class="ion-android-star"></i>-->
-<!--													<i class="ion-android-star"></i>-->
-<!--													<i class="ion-android-star"></i>-->
-<!--													<i class="ion-android-star"></i>-->
-<!--													<i class="ion-android-star"></i>-->
-<!--													<i class="ion-android-star"></i>-->
-<!--													<i class="ion-android-star"></i>-->
-<!--													<i class="ion-android-star"></i>-->
-<!--													<i class="ion-android-star last"></i>-->
-<!--												</div>-->
-<!--												<p class="time">-->
-<!--													17 December 2016 by <a href="#"> hawaiipierson</a>-->
-<!--												</p>-->
-<!--												<p>This is by far one of my favorite movies from the MCU. The introduction of new Characters both good and bad also makes the movie more exciting. giving the characters more of a back story can also help audiences relate more to different characters better, and it connects a bond between the audience and actors or characters. Having seen the movie three times does not bother me here as it is as thrilling and exciting every time I am watching it. In other words, the movie is by far better than previous movies (and I do love everything Marvel), the plotting is splendid (they really do out do themselves in each film, there are no problems watching it more than once.</p>-->
-<!--											</div>-->
 						            	</div>
-
-<!--						            	<div class="col-md-4 col-xs-12 col-sm-12">-->
-<!--						            		<div class="sb-it">-->
-<!--						            			<h6>Director: </h6>-->
-<!--						            			<p><a href="#">Joss Whedon</a></p>-->
-<!--						            		</div>-->
-<!--						            		<div class="sb-it">-->
-<!--						            			<h6>Writer: </h6>-->
-<!--						            			<p><a href="#">Joss Whedon,</a> <a href="#">Stan Lee</a></p>-->
-<!--						            		</div>-->
-<!--						            		<div class="sb-it">-->
-<!--						            			<h6>Stars: </h6>-->
-<!--						            			<p><a href="#">Robert Downey Jr,</a> <a href="#">Chris Evans,</a> <a href="#">Mark Ruffalo,</a><a href="#"> Scarlett Johansson</a></p>-->
-<!--						            		</div>-->
-<!--						            		<div class="sb-it">-->
-<!--						            			<h6>Genres:</h6>-->
-<!--						            			<p><a href="#">Action, </a> <a href="#"> Sci-Fi,</a> <a href="#">Adventure</a></p>-->
-<!--						            		</div>-->
-<!--						            		<div class="sb-it">-->
-<!--						            			<h6>Release Date:</h6>-->
-<!--						            			<p>May 1, 2015 (U.S.A)</p>-->
-<!--						            		</div>-->
-<!--						            		<div class="sb-it">-->
-<!--						            			<h6>Run Time:</h6>-->
-<!--						            			<p>141 min</p>-->
-<!--						            		</div>-->
-<!--						            		<div class="sb-it">-->
-<!--						            			<h6>MMPA Rating:</h6>-->
-<!--						            			<p>PG-13</p>-->
-<!--						            		</div>-->
-<!--						            		<div class="sb-it">-->
-<!--						            			<h6>Plot Keywords:</h6>-->
-<!--						            			<p class="tags">-->
-<!--						            				<span class="time"><a href="#">superhero</a></span>-->
-<!--													<span class="time"><a href="#">marvel universe</a></span>-->
-<!--													<span class="time"><a href="#">comic</a></span>-->
-<!--													<span class="time"><a href="#">blockbuster</a></span>-->
-<!--													<span class="time"><a href="#">final battle</a></span>-->
-<!--						            			</p>-->
-<!--						            		</div>-->
-<!--						            		<div class="ads">-->
-<!--												<img src="images/uploads/ads1.png" alt="">-->
-<!--											</div>-->
-<!--						            	</div>-->
 						            </div>
 						        </div>
 						        <div id="reviews" class="tab review">
@@ -645,110 +565,6 @@
 </footer>
 <!-- end of footer section-->
 
-<script>
-	function autocomplete(inp, arr) {
-	  /*the autocomplete function takes two arguments,
-	  the text field element and an array of possible autocompleted values:*/
-	  var currentFocus;
-	  /*execute a function when someone writes in the text field:*/
-	  inp.addEventListener("input", function(e) {
-		  var a, b, i, val = this.value;
-		  /*close any already open lists of autocompleted values*/
-		  closeAllLists();
-		  if (!val) { return false;}
-		  currentFocus = -1;
-		  /*create a DIV element that will contain the items (values):*/
-		  a = document.createElement("DIV");
-		  a.setAttribute("id", this.id + "autocomplete-list");
-		  a.setAttribute("class", "autocomplete-items");
-		  /*append the DIV element as a child of the autocomplete container:*/
-		  this.parentNode.appendChild(a);
-		  /*for each item in the array...*/
-		  for (i = 0; i < arr.length; i++) {
-			/*check if the item starts with the same letters as the text field value:*/
-			if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-			  /*create a DIV element for each matching element:*/
-			  b = document.createElement("DIV");
-			  /*make the matching letters bold:*/
-			  b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-			  b.innerHTML += arr[i].substr(val.length);
-			  /*insert a input field that will hold the current array item's value:*/
-			  b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-			  /*execute a function when someone clicks on the item value (DIV element):*/
-			  b.addEventListener("click", function(e) {
-				  /*insert the value for the autocomplete text field:*/
-				  inp.value = this.getElementsByTagName("input")[0].value;
-				  /*close the list of autocompleted values,
-				  (or any other open lists of autocompleted values:*/
-				  closeAllLists();
-			  });
-			  a.appendChild(b);
-			}
-		  }
-	  });
-	  /*execute a function presses a key on the keyboard:*/
-	  inp.addEventListener("keydown", function(e) {
-		  var x = document.getElementById(this.id + "autocomplete-list");
-		  if (x) x = x.getElementsByTagName("div");
-		  if (e.keyCode == 40) {
-			/*If the arrow DOWN key is pressed,
-			increase the currentFocus variable:*/
-			currentFocus++;
-			/*and and make the current item more visible:*/
-			addActive(x);
-		  } else if (e.keyCode == 38) { //up
-			/*If the arrow UP key is pressed,
-			decrease the currentFocus variable:*/
-			currentFocus--;
-			/*and and make the current item more visible:*/
-			addActive(x);
-		  } else if (e.keyCode == 13) {
-			/*If the ENTER key is pressed, prevent the form from being submitted,*/
-			e.preventDefault();
-			if (currentFocus > -1) {
-			  /*and simulate a click on the "active" item:*/
-			  if (x) x[currentFocus].click();
-			}
-		  }
-	  });
-	  function addActive(x) {
-		/*a function to classify an item as "active":*/
-		if (!x) return false;
-		/*start by removing the "active" class on all items:*/
-		removeActive(x);
-		if (currentFocus >= x.length) currentFocus = 0;
-		if (currentFocus < 0) currentFocus = (x.length - 1);
-		/*add class "autocomplete-active":*/
-		x[currentFocus].classList.add("autocomplete-active");
-	  }
-	  function removeActive(x) {
-		/*a function to remove the "active" class from all autocomplete items:*/
-		for (var i = 0; i < x.length; i++) {
-		  x[i].classList.remove("autocomplete-active");
-		}
-	  }
-	  function closeAllLists(elmnt) {
-		/*close all autocomplete lists in the document,
-		except the one passed as an argument:*/
-		var x = document.getElementsByClassName("autocomplete-items");
-		for (var i = 0; i < x.length; i++) {
-		  if (elmnt != x[i] && elmnt != inp) {
-			x[i].parentNode.removeChild(x[i]);
-		  }
-		}
-	  }
-	  /*execute a function when someone clicks in the document:*/
-	  document.addEventListener("click", function (e) {
-		  closeAllLists(e.target);
-	  });
-	}
-	
-	/*An array containing all the country names in the world:*/
-	var movies = {{ all_movies | safe }}
-
-	/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-	autocomplete(document.getElementById("myInput"), movies);
-	</script>
 
 <script src="{% static 'main/js/jquery.js' %}"></script>
 <script src="{% static 'main/js/plugins.js' %}"></script>
