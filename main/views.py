@@ -1,10 +1,10 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 from .models import *
 from .utils import *
 
-
+"Fetching lists for autocomplete"
 _movie = Movie()
 _actor = Actor()
 _director = Director()
@@ -20,6 +20,10 @@ all_directors = json.dumps(_director.get_directors())
 
 
 def home_page(request):
+    """
+    - Loads home page
+    - Shows recommendations if the user is logged in
+    """
     trending_movies = Movie.objects.all().order_by("-views")[:12]
 
     feature_rec, actor_rec, director_rec, studio_rec = [], [], [], []
@@ -39,6 +43,10 @@ def home_page(request):
 
 
 def user_login(request):
+    """
+    - Login the user with username and password [POST request]
+    - Display login page [GET request]
+    """
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -51,21 +59,25 @@ def user_login(request):
 
 
 def register(request):
+    """
+    - Register the user with username, email and password [POST request]
+    - Display register page [GET request]
+    """
     if request.method == "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
         password_again = request.POST.get("confirm_password")
 
-        if password != password_again:
+        if password != password_again:  # check if passwords are same
             messages.error(request, "Passwords do not match")
             return redirect("register")
 
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists():  # check if username exists or not
             messages.error(request, "Username taken")
             return redirect("register")
 
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists():  # check if email exists or not
             messages.error(request, "E-Mail taken")
             return redirect("register")
 
@@ -77,11 +89,18 @@ def register(request):
 
 
 def user_logout(request):
+    """
+    - Logout the user
+    """
     logout(request)
     return redirect("app_home")
 
 
 def search_movie(request):
+    """
+    - Display movies with user specified filters [POST request]
+    - Display search page [GET request]
+    """
     result = None
 
     if request.method == "POST":
@@ -99,7 +118,7 @@ def search_movie(request):
         movie = Movie()
         result = movie.search_movie(movie_name, actor, director, production_studio, language, genre)
 
-    if result is None:
+    if result is None:  # If no movie matches the filters
         result = []
 
     _genre = Genre()
@@ -118,6 +137,10 @@ def search_movie(request):
 
 @login_required
 def user_profile(request):
+    """
+    - Update user password [POST request]
+    - Display profile page [GET request]
+    """
     if request.method == "POST":
         old_password = request.POST.get("old_password")
         new_password = request.POST.get("new_password")
@@ -143,12 +166,17 @@ def user_profile(request):
 
 
 def movie_information(request):
+    """
+    - Display movie with the given id
+    - Load recommendations for the searched movie
+    - Display 404 page if movie does not exist
+    """
     try:
         if "id" in request.GET:
             movie_id = int(request.GET.get("id"))
             print(movie_id)
 
-            movie = Movie.objects.filter(id=movie_id)
+            movie = Movie.objects.filter(id=movie_id)  # Fetch movie from database
             if len(movie) != 0:
                 movie = movie.first()
                 movie.views += 1
@@ -182,9 +210,15 @@ def movie_information(request):
 
 @login_required
 def user_rate(request):
+    """
+    - Display movies rated by the user
+    """
     return render(request, 'main/userrate.html')
 
 
 @login_required
 def user_favorite(request):
+    """
+    - Display movies liked by the user
+    """
     return render(request, 'main/userfavorite.html')

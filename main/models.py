@@ -8,6 +8,8 @@ import pickle
 from scipy import sparse
 from .utils import *
 
+
+# Load ML models, feature vectors and other essential objects
 with open("ml_utils/recommendation/feature_movie_rec.pkl", "rb") as f:
     model_feature = pickle.load(f)
 with open("ml_utils/recommendation/actor_movie_rec.pkl", "rb") as f:
@@ -47,6 +49,9 @@ class Actor(models.Model):
         return self.name
 
     def get_actors(self):
+        """
+        - Returns list of all actors
+        """
         result = []
 
         for actor in Actor.objects.all():
@@ -64,6 +69,9 @@ class Director(models.Model):
         return self.name
 
     def get_directors(self):
+        """
+        - Returns list of all directors
+        """
         result = []
 
         for director in Director.objects.all():
@@ -80,6 +88,9 @@ class Genre(models.Model):
         return self.type
 
     def get_genres(self):
+        """
+        - Returns list of all genre
+        """
         result = []
 
         for genre in Genre.objects.all():
@@ -108,6 +119,9 @@ class Movie(models.Model):
         return self.title
 
     def search_movie(self, movie_name, actor, director, production_studio, language, genre):
+        """
+        - Return set of movies that fit in the filters set by user
+        """
         result = None
         print(actor, director, production_studio, language, genre)
 
@@ -159,28 +173,34 @@ class Movie(models.Model):
         return result
 
     def get_movie_recommendation(self):
+        """
+        - Load recommendations for the current movie
+        """
         feature_rec, actor_rec, director_rec, studio_rec = [], [], [], []
 
         y = data["title"]
-        dist, ind = model_feature.kneighbors(X_feature_vectors[self.id], n_neighbors=8)
+        dist, ind = model_feature.kneighbors(X_feature_vectors[self.id], n_neighbors=8)  # Feature based recommendations
         for i in ind[0]:
             feature_rec.append(Movie.objects.filter(title=y[i]).first())
 
-        dist, ind = model_actor.kneighbors(X_actor_vectors[self.id], n_neighbors=8)
+        dist, ind = model_actor.kneighbors(X_actor_vectors[self.id], n_neighbors=8)  # Actor based recommendations
         for i in ind[0]:
             actor_rec.append(Movie.objects.filter(title=y[i]).first())
 
-        dist, ind = model_director.kneighbors(X_director_vectors[self.id], n_neighbors=8)
+        dist, ind = model_director.kneighbors(X_director_vectors[self.id], n_neighbors=8)  # Director based recommendations
         for i in ind[0]:
             director_rec.append(Movie.objects.filter(title=y[i]).first())
 
-        dist, ind = model_studio.kneighbors(X_studio_vectors[self.id], n_neighbors=8)
+        dist, ind = model_studio.kneighbors(X_studio_vectors[self.id], n_neighbors=8)  # Studio based recommendations
         for i in ind[0]:
             studio_rec.append(Movie.objects.filter(title=y[i]).first())
 
         return feature_rec, actor_rec, director_rec, studio_rec
 
     def get_movies(self):
+        """
+        - Returns list of all movies, languages, and studio
+        """
         result_movie = []
         result_language = set()
         result_studio = set()
@@ -211,39 +231,54 @@ class AuthorizedUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def view_history(self):
+        """
+        - Display users' history
+        """
         # To be implemented with 'History and Liked items'
         pass
 
     def view_liked(self):
+        """
+        - Display users' liked items
+        """
         # To be implemented with 'History and Liked items'
         pass
 
     def unlike_item(self):
+        """
+        - Remove a movie from users' liked item list
+        """
         # To be implemented with 'History and Liked items'
         pass
 
     def update_profile(self):
+        """
+        - Update user profile
+        """
         # To be implemented with 'History and Liked items'
         # username, email, password inherited from user class
         pass
 
     def get_personalized_recommendations(self):
+        """
+        - Recommend movies based on users' preferences
+        """
         feature_rec, actor_rec, director_rec, studio_rec = [], [], [], []
 
         y = data["title"]
-        dist, ind = model_feature.kneighbors([json.loads(self.feature_preference)], n_neighbors=8)
+        dist, ind = model_feature.kneighbors([json.loads(self.feature_preference)], n_neighbors=8)  # Based on users feature preference
         for i in ind[0]:
             feature_rec.append(Movie.objects.filter(title=y[i]).first())
 
-        dist, ind = model_actor.kneighbors([json.loads(self.actor_preference)], n_neighbors=8)
+        dist, ind = model_actor.kneighbors([json.loads(self.actor_preference)], n_neighbors=8)  # Based on users actor preference
         for i in ind[0]:
             actor_rec.append(Movie.objects.filter(title=y[i]).first())
 
-        dist, ind = model_director.kneighbors([json.loads(self.director_preference)], n_neighbors=8)
+        dist, ind = model_director.kneighbors([json.loads(self.director_preference)], n_neighbors=8)  # Based on users director preference
         for i in ind[0]:
             director_rec.append(Movie.objects.filter(title=y[i]).first())
 
-        dist, ind = model_studio.kneighbors([json.loads(self.studio_preference)], n_neighbors=8)
+        dist, ind = model_studio.kneighbors([json.loads(self.studio_preference)], n_neighbors=8)  # Based on users studio preference
         for i in ind[0]:
             studio_rec.append(Movie.objects.filter(title=y[i]).first())
 
@@ -252,6 +287,9 @@ class AuthorizedUser(models.Model):
 
 class AnonymousUser:
     def register(self, request, username, email, password):
+        """
+        - Create a new user object
+        """
         new_user = User.objects.create_user(username=username, email=email, password=password)
         new_user.save()
 
@@ -271,6 +309,9 @@ class AnonymousUser:
         return redirect("app_home")
 
     def login(self, request, username, password):
+        """
+        - Authorize the user with username and password
+        """
         user = authenticate(username=username, password=password)
 
         if user is not None:
