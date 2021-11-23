@@ -126,8 +126,8 @@ class Movie(models.Model):
         print(actor, director, production_studio, language, genre)
 
         if movie_name != "":
-            _movie = Movie.objects.filter(title=movie_name).first()
-            result = {_movie}
+            _movie = Movie.objects.filter(title__icontains=movie_name)
+            result = set(_movie)
 
         if actor != "":
             _actor = Actor.objects.filter(name=actor).first()
