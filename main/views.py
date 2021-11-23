@@ -196,9 +196,11 @@ def movie_information(request):
         return not_found_404(request)
 
 
+@login_required
 def user_rate(request):
     return render(request, 'main/userrate.html')
 
 
+@login_required
 def user_favorite(request):
     return render(request, 'main/userfavorite.html')

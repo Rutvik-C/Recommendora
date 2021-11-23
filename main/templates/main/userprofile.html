@@ -96,21 +96,21 @@
 			<div class="col-md-3 col-sm-12 col-xs-12">
 				<div class="user-information">
 					<div class="user-img">
-						<a href="#"><img src="{% static 'main/images/uploads/user-img.png' %}" alt=""><br></a>
-						<a href="#" class="redbtn">Change avatar</a>
+						<a><img src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-user-interface-kiranshastry-lineal-color-kiranshastry.png" alt=""><br></a>
+						<a class="redbtn">Change avatar</a>
 					</div>
 					<div class="user-fav">
 						<p>Account Details</p>
 						<ul>
-							<li  class="active"><a href="#">My Profile</a></li>
-							<li><a href="/userfavorite">Favorite movies and History</a></li>
-							<li><a href="/userrate">Rated movies</a></li>
+							<li  class="active"><a>My Profile</a></li>
+							<li><a href="{% url 'user_favorite' %}">Favorite movies and History</a></li>
+							<li><a href="{% url 'user_rate' %}">Rated movies</a></li>
 						</ul>
 					</div>
 					<div class="user-fav">
 						<p>Others</p>
 						<ul>
-							<li><a href="#">My Friends</a></li>
+							<li><a>My Friends</a></li>
 							<li><a href="{% url 'logout' %}">Log out</a></li>
 						</ul>
 					</div>
