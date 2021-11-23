@@ -22,10 +22,8 @@
     <list default="true" id="b39787e7-2e39-4078-8826-a4dd27ff555b" name="Default Changelist" comment="Home page rec done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Recommendora/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recommendora/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/templates/main/userfavorite.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/userfavorite.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/templates/main/userrate.html" beforeDir="false" afterPath="$PROJECT_DIR$/main/templates/main/userrate.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
