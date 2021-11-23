@@ -26,7 +26,20 @@ X_director_vectors = sparse.load_npz("ml_utils/recommendation/director_vectors.n
 X_studio_vectors = sparse.load_npz("ml_utils/recommendation/studio_vectors.npz")
 
 
+"""
+django.contrib.auth.models.User is as follows
+ref: django.contrib.auth.models import User
+
+class User:
+    id = int()
+    username = str()
+    email = str()
+    password = str()
+"""
+
+
 class Actor(models.Model):
+    # id: builtin attribute in django
     name = models.CharField(max_length=100)
     image_url = models.CharField(max_length=300)
 
@@ -43,6 +56,7 @@ class Actor(models.Model):
 
 
 class Director(models.Model):
+    # id: builtin attribute in django
     name = models.CharField(max_length=50)
     image_url = models.CharField(max_length=300)
 
@@ -59,6 +73,7 @@ class Director(models.Model):
 
 
 class Genre(models.Model):
+    # id: builtin attribute in django
     type = models.CharField(max_length=50)
 
     def __str__(self):
@@ -74,6 +89,7 @@ class Genre(models.Model):
 
 
 class Movie(models.Model):
+    # id: builtin attribute in django
     title = models.CharField(max_length=200)
     image_url = models.CharField(max_length=250)
     trailer_link = models.CharField(max_length=50)
@@ -185,11 +201,31 @@ class Movie(models.Model):
 
 
 class AuthorizedUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    # To be implemented with 'History and Liked items'
+    # liked_items = []
+    # history = []
     feature_preference = models.TextField()
     actor_preference = models.TextField()
     director_preference = models.TextField()
     studio_preference = models.TextField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    def view_history(self):
+        # To be implemented with 'History and Liked items'
+        pass
+
+    def view_liked(self):
+        # To be implemented with 'History and Liked items'
+        pass
+
+    def unlike_item(self):
+        # To be implemented with 'History and Liked items'
+        pass
+
+    def update_profile(self):
+        # To be implemented with 'History and Liked items'
+        # username, email, password inherited from user class
+        pass
 
     def get_personalized_recommendations(self):
         feature_rec, actor_rec, director_rec, studio_rec = [], [], [], []
