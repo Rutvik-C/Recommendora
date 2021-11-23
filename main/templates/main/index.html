@@ -136,12 +136,6 @@ color: yellow;
 				</div>
 			<!-- /.navbar-collapse -->
 	    </nav>
-	    
-	    <!-- top search form -->
-	    <div class="top-search autocomplete">
-			<input id="myInput" type="text" placeholder="Search for a movie that you are looking for">
-			<a></a>
-	    </div>
 	</div>
 </header>
 <!-- END | Header -->
@@ -149,7 +143,7 @@ color: yellow;
 <div class="slider movie-items">
 	<div class="container">
 		<div class="row">
-			
+
 	    	<div  class="slick-multiItemSlider">
 
 				{% for movie in trending_movies %}
@@ -196,7 +190,7 @@ color: yellow;
 				            			<div class="movie-item">
 					            			<div class="mv-img">
 					            				<img class="myImg2" src="{{ movie.image_url }}" alt="">
-					            			</div> 
+					            			</div>
 					            			<div class="hvr-inner">
 					            				<a  href="{% url 'movie_info' %}?id={{ movie.id }}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
@@ -341,12 +335,12 @@ color: yellow;
 			<div class="flex-child-ft item2">
 				<h4>Menu</h4>
 				<ul>
-					<li><a href="#">Home</a></li> 
+					<li><a href="#">Home</a></li>
 					<li><a href="#">Search Movie</a></li>
 					<li><a href="#">Friends</a></li>
 				</ul>
 			</div>
-			
+
 			<div class="flex-child-ft item4">
 				<h4>Follow us</h4>
 				<div class="social-link">
@@ -461,7 +455,7 @@ color: yellow;
 		  closeAllLists(e.target);
 	  });
 	}
-	
+
 	/*An array containing all the country names in the world:*/
 	var movies = {{ all_movies | safe }}
 

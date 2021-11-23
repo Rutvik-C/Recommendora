@@ -34,7 +34,9 @@
     height: 285px;
     object-fit: cover;
 }
-
+		a:hover {
+color: yellow;
+}
 		/*the container must be positioned relative:*/
 		.autocomplete {
 		  position: relative;
@@ -129,10 +131,6 @@
 			<!-- /.navbar-collapse -->
 	    </nav>
 
-	    <!-- top search form -->
-	    <div class="top-search autocomplete">
-					<input id="mySearch" type="text" placeholder="Search for a movie that you are looking for">
-	    </div>
 	</div>
 </header>
 <!-- END | Header -->
@@ -189,6 +187,10 @@
 							{% csrf_token %}
 
 							<div class="row">
+							<div class="col-md-12 form-it autocomplete">
+									<label>Movie name</label>
+									<input id="myMovie" name="actor" type="text" placeholder="Enter keywords">
+								</div>
 								<div class="col-md-12 form-it autocomplete">
 									<label>Actor name</label>
 									<input id="myActor" name="actor" type="text" placeholder="Enter keywords">
@@ -380,7 +382,7 @@
 
 
 	/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-	autocomplete(document.getElementById("mySearch"), movies);
+	autocomplete(document.getElementById("myMovie"), movies);
 	autocomplete(document.getElementById("myActor"), actors);
 	autocomplete(document.getElementById("myDirector"), directors);
 	autocomplete(document.getElementById("myProduction"), studios);
