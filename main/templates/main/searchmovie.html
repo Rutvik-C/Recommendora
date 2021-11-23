@@ -13,6 +13,7 @@
 
     <!--Google Font-->
     <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.0/font/bootstrap-icons.min.css" integrity="sha512-yLNTU6YQWEtsM/WVkUqd2jRzzq5hmfFUMVvziVlkgC0R9HTElDtyF4DiWiBeMS36npvN+NWwrr764A4AWGcmQQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- Mobile specific meta -->
 	<meta name=viewport content="width=device-width, initial-scale=1">
 	<meta name="format-detection" content="telephone-no">
@@ -20,6 +21,7 @@
 	<!-- CSS files -->
 	<link rel="stylesheet" href="{% static 'main/css/plugins.css' %}">
 	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+	
 <style>
 				.myImg {
     float: left;
@@ -169,7 +171,7 @@ color: yellow;
 	            			</div>
 							<div class="mv-item-infor">
 								<h6><a href="{% url 'movie_info' %}?id={{ movie.id }}">{{ movie.title }}</a></h6>
-								<p class="rate"><i class="ion-android-star"></i><span>{{ movie.views }}</span></p>
+								<p class="rate"><i class="bi bi-eye"></i><span>{{ movie.views }}</span></p>
 							</div>
 						</div>
 
